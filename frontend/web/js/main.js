@@ -344,8 +344,8 @@ $(document).ready(function () {
             }
         });
 
-        console.log(from);
-        console.log(to);
+        var key_1 = "" + from + to;
+        var key_2 = "" + to + from;
 
 
         $.post("/match/challenge",
@@ -363,7 +363,7 @@ $(document).ready(function () {
                 $("html").animate({ scrollTop: 0 });
                 $('.rematch-waiting').each(function () {
 
-                    if($(this).data('hash') == ("" + from + to) || "" + to + from){
+                    if($(this).data('hash') == key_1 || $(this).data('hash') == key_2){
                         console.log(123123123)
                         $(this).show();
                         $(this).next().hide();
