@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Font_Name_1';
+    src: url('../fonts/fontawesome-webfont.eot') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Font_Name_2';
+    src: url('../fonts/fontawesome-webfont.woff') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Font_Name_3';
+    src: url('../fonts/FontAwesome.otf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Font_Name_4';
+    src: url('../fonts/fontawesome-webfont.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Font_Name_5';
+    src: url('../fonts/fontawesome-webfont.woff2') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../fonts/Proxima Nova Regular.otf') format('truetype');
+    font-weight: normal;
+}
