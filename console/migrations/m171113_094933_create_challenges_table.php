@@ -20,6 +20,7 @@ class m171113_094933_create_challenges_table extends Migration
             'duration' => $this->string(),
             'referee' => $this->integer(),
             'vest' => $this->integer(),
+            'previous_match_id' => $this->integer(),
         ]);
     }
 

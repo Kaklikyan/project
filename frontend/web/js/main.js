@@ -321,7 +321,18 @@ $(document).ready(function () {
 
         var parent = $(this).closest('.rematch-content');
         var field_id;
+        var from;
+        var to;
 
+        $(this).closest('.rematch-block').prev().find('.results-content-bottom').find('.results-team').each(function () {
+            if($(this).hasClass('result-current-team')) {
+                from = $(this).data('team');
+            }else {
+                to = $(this).data('team');
+            }
+        });
+
+        var previous_match_id = $(this).closest('.rematch-block').prev().find('.results-content-bottom').data('match');
         var duration = $(parent).find('#duration').is(':checked');
         var referee = $(parent).find('#referee').is(':checked');
         var vest = $(parent).find('#vest').is(':checked');
@@ -333,7 +344,18 @@ $(document).ready(function () {
             }
         });
 
-        $.post("/match/challenge", {field_id : field_id, date: date, duration: duration, referee: referee, vest: vest})
+        $.post("/match/challenge",
+            {   field_id : field_id,
+                date: date,
+                duration: duration,
+                referee: referee,
+                vest: vest,
+                from: from,
+                to: to,
+                previous_match_id: previous_match_id
+            }).done(function (result) {
+            console.log(result);
+        });
     })
     
     

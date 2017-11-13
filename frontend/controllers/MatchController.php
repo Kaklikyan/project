@@ -9,6 +9,7 @@
 namespace frontend\controllers;
 
 
+use common\models\Challenges;
 use Yii;
 use yii\base\Controller;
 use yii\filters\AccessControl;
@@ -46,10 +47,21 @@ class MatchController extends Controller
     public function actionChallenge() {
         if (Yii::$app->request->post()){
 
-            $model;
-
             $post_data = Yii::$app->request->post();
-            echo date('Y-m-d H:i', strtotime($post_data['date']));die;
+
+            $model = new Challenges();
+
+            $model->from = $post_data['from'];
+            $model->to = $post_data['to'];
+            $model->previous_match_id = $post_data['previous_match_id'];
+            $model->date = date('Y-m-d H:i', strtotime($post_data['date']));
+            $model->duration = $post_data['duration'];
+            $model->referee = $post_data['referee'] ? 1 : 0;
+            $model->vest = $post_data['vest'] ? 1 : 0;
+
+            if($model->save()){
+                exit('success');
+            }
         }
     }
 }
