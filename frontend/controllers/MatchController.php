@@ -58,8 +58,10 @@ class MatchController extends Controller
             $model->duration = $post_data['duration'];
             $model->referee = $post_data['referee'] ? 1 : 0;
             $model->vest = $post_data['vest'] ? 1 : 0;
+            $model->is_actual = 1;
 
             if($model->save()){
+                Yii::$app->session->setFlash('rematch', 'Challenge is done.');
                 exit('success');
             }
         }

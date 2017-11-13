@@ -9,6 +9,9 @@ $this->title = 'Wins - ' . $current_team->title;
 ?>
 
 <h3>Winning Matches</h3>
+
+<div class="alert alert-success rematch-success" style="display: none">Challenge is done.</div>
+
 <?php foreach ($wins_data['matches'] as $match) : ?>
     <div id="match-<?=$match['id']?>" class="results-content" >
         <div class="results-content-main">
@@ -17,6 +20,7 @@ $this->title = 'Wins - ' . $current_team->title;
                     <?=date("d/m/y", strtotime($match['match_date']))?>
                 </div>
                 <div class="col-md-4 col-md-offset-4 results-top-buttons">
+                    <?= Html::img('@web/images/time-left.png', ['style' => 'margin-right: 8px; display: none', 'class' => 'rematch-waiting', 'data-hash' => $match['first']['id'].$match['second']['id']]) ?>
                     <?= Html::img('@web/images/three-circling-arrows.png', ['style' => 'margin-right: 8px;', 'class' => 'results-rematch', 'data-toggle'=>"modal",  'data-target'=>"#rematch-modal"]) ?>
                     <?= Html::img('@web/images/round-add-button.png', ['class' => 'results-info']) ?>
                 </div>
@@ -194,11 +198,9 @@ $this->title = 'Wins - ' . $current_team->title;
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">

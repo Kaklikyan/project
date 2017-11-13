@@ -344,6 +344,10 @@ $(document).ready(function () {
             }
         });
 
+        console.log(from);
+        console.log(to);
+
+
         $.post("/match/challenge",
             {   field_id : field_id,
                 date: date,
@@ -353,10 +357,18 @@ $(document).ready(function () {
                 from: from,
                 to: to,
                 previous_match_id: previous_match_id
-            }).done(function (result) {
-            console.log(result);
+            }).done(function () {
+                $('.rematch-success').fadeIn();
+                $('.close').trigger('click');
+                $("html").animate({ scrollTop: 0 });
+                $('.rematch-waiting').each(function () {
+
+                    if($(this).data('hash') == ("" + from + to) || "" + to + from){
+                        console.log(123123123)
+                        $(this).show();
+                        $(this).next().hide();
+                    }
+                })
+            });
         });
-    })
-    
-    
 });

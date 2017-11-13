@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  * @property integer $referee
  * @property integer $vest
  * @property integer $previous_match_id
+ * @property integer $is_actual
  */
 class Challenges extends ActiveRecord
 {
@@ -33,7 +34,7 @@ class Challenges extends ActiveRecord
     public function rules()
     {
         return [
-            [['from', 'to', 'referee', 'vest', 'previous_match_id'], 'integer'],
+            [['from', 'to', 'referee', 'vest', 'previous_match_id', 'is_actual'], 'integer'],
             [['date'], 'safe'],
             [['duration'], 'string', 'max' => 255],
         ];
