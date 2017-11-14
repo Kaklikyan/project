@@ -19,6 +19,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 'main/team-info/<key:\w+>' => 'main/team-info',
+
                 [
                     'pattern' => 'players/<id:\d+>',
                     'route' => 'players/',
@@ -29,6 +30,9 @@ return [
                     'route' => 'teams/',
                     'defaults' => ['id' => ''],
                 ],
+
+                'match/cancel/<id:\d+>' => 'match/cancel',
+
 
                 '<action>'=>'site/<action>',
             ],

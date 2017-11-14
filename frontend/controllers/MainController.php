@@ -195,7 +195,6 @@ class MainController extends ParentController
     }
 
     public function actionTeamInfo($key) {
-
         switch ($key) {
             case 'total' :
 
@@ -215,7 +214,7 @@ class MainController extends ParentController
                 $current_team = Teams::findOne(Yii::$app->user->identity['team_id']);
 
                 $wins_data = TeamInformation::find()->where(['team_id' => Yii::$app->user->identity['team_id']])->with(['matches' => function(ActiveQuery $q) {
-                    $q->andWhere(['match_winner' => Yii::$app->user->identity['team_id']])->indexBy('id')->orderBy(['match_date' => SORT_DESC])->with(['first', 'second', 'matchInfoStatistics' => function(ActiveQuery $z) {
+                    $q->andWhere(['match_winner' => Yii::$app->user->identity['team_id']])->indexBy('id')->orderBy(['match_date' => SORT_DESC])->with(['challenges','first', 'second', 'matchInfoStatistics' => function(ActiveQuery $z) {
                         $z->with('goal', 'pass');
                     }]);
                 }])->asArray()->one();

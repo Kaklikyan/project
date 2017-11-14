@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use \kartik\datetime\DateTimePicker;
+use yii\helpers\Url;
 
 $this->title = 'Wins - ' . $current_team->title;
     //print_r($wins_data);die;
@@ -10,7 +11,16 @@ $this->title = 'Wins - ' . $current_team->title;
 
 <h3>Winning Matches</h3>
 
-<div class="alert alert-success rematch-success" style="display: none">Challenge is done.</div>
+<?php if(Yii::$app->session->hasFlash('rematch')) :?>
+    <div class="alert alert-success" style="text-align: center">
+        <?=Yii::$app->session->getFlash('rematch')?>
+    </div>
+<?php endif; ?>
+<?php if(Yii::$app->session->hasFlash('rematch-cancel')) :?>
+    <div class="alert alert-danger" style="text-align: center">
+        <?=Yii::$app->session->getFlash('rematch-cancel')?>
+    </div>
+<?php endif; ?>
 
 <?php foreach ($wins_data['matches'] as $match) : ?>
     <div id="match-<?=$match['id']?>" class="results-content" >
@@ -19,9 +29,13 @@ $this->title = 'Wins - ' . $current_team->title;
                 <div class="col-md-4 results-date">Yerevan -
                     <?=date("d/m/y", strtotime($match['match_date']))?>
                 </div>
-                <div class="col-md-4 col-md-offset-4 results-top-buttons">
-                    <?= Html::img('@web/images/time-left.png', ['style' => 'margin-right: 8px; display: none', 'class' => 'rematch-waiting', 'data-hash' => $match['first']['id'].$match['second']['id']]) ?>
-                    <?= Html::img('@web/images/three-circling-arrows.png', ['style' => 'margin-right: 8px;', 'class' => 'results-rematch', 'data-toggle'=>"modal",  'data-target'=>"#rematch-modal"]) ?>
+                <div class="col-md-6 col-md-offset-2 results-top-buttons">
+                    <?php if (strpos($match['challenges']['challenge_key'],$match['first']['id'].$match['second']['id']) !== false && $match['challenges']['status'] == 1) : ?>
+                        <div class="challenge-cancel">Waiting challenge response | <a style="color: #ffaf00" href="<?= Url::to(['/match/cancel', 'id' => $match['challenges']['id']]) ?>">Cancel</a></div>
+                        <?= Html::img('@web/images/time-left.png', ['class' => 'rematch-waiting', 'data-hash' => $match['first']['id'].$match['second']['id']]);?>
+                    <?php else : ?>
+                        <?= Html::img('@web/images/three-circling-arrows.png', ['style' => 'margin-right: 8px;', 'class' => 'results-rematch', 'data-toggle'=>"modal",  'data-target'=>"#rematch-modal"]);?>
+                    <?php endif; ?>
                     <?= Html::img('@web/images/round-add-button.png', ['class' => 'results-info']) ?>
                 </div>
             </div>

@@ -11,7 +11,8 @@ namespace frontend\controllers;
 
 use common\models\Challenges;
 use Yii;
-use yii\base\Controller;
+use yii\db\Expression;
+use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -30,7 +31,7 @@ class MatchController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'challenge'],
+                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'challenge', 'cancel'],
                         'roles' => ['@']
                     ]
                 ],
@@ -44,6 +45,11 @@ class MatchController extends Controller
         ];
     }
 
+    /*public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }*/
+
     public function actionChallenge() {
         if (Yii::$app->request->post()){
 
@@ -51,6 +57,7 @@ class MatchController extends Controller
 
             $model = new Challenges();
 
+            $model->challenge_key = $post_data['challenge_key'];
             $model->from = $post_data['from'];
             $model->to = $post_data['to'];
             $model->previous_match_id = $post_data['previous_match_id'];
@@ -58,12 +65,22 @@ class MatchController extends Controller
             $model->duration = $post_data['duration'];
             $model->referee = $post_data['referee'] ? 1 : 0;
             $model->vest = $post_data['vest'] ? 1 : 0;
-            $model->is_actual = 1;
+            $model->status = 1;
+            $model->challenge_date = new Expression('NOW()');
 
             if($model->save()){
                 Yii::$app->session->setFlash('rematch', 'Challenge is done.');
-                exit('success');
+                exit();
             }
+        }
+    }
+
+    public function actionCancel($id) {
+
+        $challenge = Challenges::findOne($id);
+        if($challenge->delete()){
+            Yii::$app->session->setFlash('rematch-cancel', 'Challenge is canceled');
+            return $this->redirect('/main/team-info/wins');
         }
     }
 }

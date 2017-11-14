@@ -33,7 +33,10 @@ $(document).ready(function () {
         return Math.floor(Math.random() * 10) + 1;
     }
 
+    // Tooltip settings
+    //$('[data-toggle="rematch-waiting"]').tooltip();
 
+    // Add player card in "Create Team" page (need to rework)
     $('#add-player').off();
     $('#add-player').on('click', function(){
 
@@ -78,11 +81,9 @@ $(document).ready(function () {
     });
 
     // Disabling current user data picker part
-
     $('.player-card #w0').prop("disabled", true);
 
     // Is user checkbox functionality
-
     $('.is-user-checkbox input').on('click', function () {
         var second_part;
         if($(this).is(':checked')){
@@ -98,8 +99,7 @@ $(document).ready(function () {
         }
     });
 
-
-
+    // Removing player card in "Create Team" page
     $('.field-remove').on('click', function(){
         var delete_key = $(this).closest('.additional-field').attr('data-key');
 
@@ -134,50 +134,8 @@ $(document).ready(function () {
             })
         }
     });
-/*
-    $(document).on('beforeSubmit','#team-form', function () {
 
-        var allData = [];
-        allData['players'] = [];
-
-        if($('.additional-fields').is(':visible')){
-            $('.additional-field').each(function (i) {
-                if ($(this).is(':visible')){
-
-                    console.log($(this).find('#photo-div input').val());
-
-                    var obj = {};
-                    obj.playerName = $(this).find('.additional-name-field').val();
-                    obj.playerDate = $(this).find('.form-control').val();
-                    obj.playerPhoto = $(this).find('#photo-div input').prop('files');
-                    allData['players'].push(obj);
-                }
-            })
-        }
-
-        //allData.teamTitle = $('#teams-title').val();
-
-        console.log(allData);
-
-        var form = $(this);
-        $.ajax({
-            url : '/main/create-team',
-            type: 'get',
-            data: allData,
-            success: function(response){
-                $('.successMessage').text('Success').show();
-            },
-
-            error: function (error) {
-
-            }
-        })
-
-    }).on('submit', function (e) {
-        e.preventDefault();
-        return false;
-    })*/
-
+    // Team create request
     $(document).on('submit','#team-form', function (e) {
 
         var checkFields = true;
@@ -255,6 +213,7 @@ $(document).ready(function () {
         }
     });
 
+    // Show/hide match information
     $('.results-info').on('click', function () {
 
         var content = $(this).closest('.results-content').find('.additional-info');
@@ -268,6 +227,7 @@ $(document).ready(function () {
         $(this).closest('.results-content').find('.additional-info').slideToggle();
     });
 
+    // Changing field content when using slider
     $(".single-item").on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         var li = $('.slick-track').find('li');
@@ -279,6 +239,7 @@ $(document).ready(function () {
 
     });
 
+    // Turn on slick slider and grab team data from main page
     $('.results-rematch').on('click', function () {
 
         $(this).closest('.results-content-main').find('.results-content-bottom').clone().appendTo('.teams-content');
@@ -307,16 +268,13 @@ $(document).ready(function () {
 
     });
 
+    // Make clear team content div after modal closing
     $('#rematch-modal').on('hidden.bs.modal', function () {
         $(this).find('.teams-content').html('');
 
     });
 
-    /*$('.rematch-block-icon').on('click', function () {
-        $(this).closest('.rematch-block').slideUp();
-        $(this).closest('.results-content').find('.results-content-main').slideDown();
-    });*/
-    
+    // Rematch ajax functionality
     $('#rematch-button').on('click', function () {
 
         var parent = $(this).closest('.rematch-content');
@@ -347,6 +305,9 @@ $(document).ready(function () {
         var key_1 = "" + from + to;
         var key_2 = "" + to + from;
 
+        var challenge_key = key_1 + '/' + key_2;
+
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
         $.post("/match/challenge",
             {   field_id : field_id,
@@ -356,19 +317,17 @@ $(document).ready(function () {
                 vest: vest,
                 from: from,
                 to: to,
-                previous_match_id: previous_match_id
+                previous_match_id: previous_match_id,
+                challenge_key: challenge_key,
+                _csrf: csrfToken
             }).done(function () {
-                $('.rematch-success').fadeIn();
-                $('.close').trigger('click');
-                $("html").animate({ scrollTop: 0 });
-                $('.rematch-waiting').each(function () {
-
-                    if($(this).data('hash') == key_1 || $(this).data('hash') == key_2){
-                        console.log(123123123)
-                        $(this).show();
-                        $(this).next().hide();
-                    }
-                })
+                window.location.reload();
+                $("html, body").animate({ scrollTop: 0 })
             });
         });
+
+    // Rematch icon toggle (cancel part)
+    $('.rematch-waiting').click(function () {
+        $(this).prev().is(':visible') ? $(this).prev().hide() : $(this).prev().css('display', 'inline-block')
+    });
 });

@@ -516,3 +516,28 @@ table{
 .match-settings-buttons .checkbox {
     margin: 10px 0;
 }
+
+.rematch-waiting {
+    margin-right: 8px;
+    display: inline-block;
+    outline: none;
+}
+
+.rematch-waiting:hover {
+    cursor: help;
+}
+
+.challenge-cancel {
+    display: none;
+    height: 100%;
+    line-height: 30px;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, .5);
+    padding: 0 10px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.challenge-cancel a {
+    color: #ffaf00;
+}

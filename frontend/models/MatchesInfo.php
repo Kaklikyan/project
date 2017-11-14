@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\Challenges;
 use common\models\MatchesInfoStatistic;
 use Yii;
 
@@ -26,6 +27,8 @@ class MatchesInfo extends \yii\db\ActiveRecord
         return 'matches_info';
     }
 
+    public $challenge_id =  '13';
+
     /**
      * @inheritdoc
      */
@@ -35,7 +38,7 @@ class MatchesInfo extends \yii\db\ActiveRecord
             [['team_info_id'], 'required'],
             [['team_info_id', 'first_side', 'second_side', 'match_winner'], 'integer'],
             [['match_date'], 'safe'],
-            [['match_score'], 'string', 'max' => 255],
+            [['match_score', ], 'string', 'max' => 255],
         ];
     }
 
@@ -65,6 +68,10 @@ class MatchesInfo extends \yii\db\ActiveRecord
 
     public function getMatchInfoStatistics() {
         return $this->hasMany(MatchesInfoStatistic::className(), ['match_info_id' => 'id']);
+    }
+
+    public function getChallenges(){
+        return $this->hasOne(Challenges::className(), ['previous_match_id' => 'id']);
     }
 
     /*public function getStatistic() {
