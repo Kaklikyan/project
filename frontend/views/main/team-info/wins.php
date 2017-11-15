@@ -42,12 +42,12 @@ $this->title = 'Wins - ' . $current_team->title;
             <div class="results-content-bottom" data-match="<?=$match['id']?>">
                 <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['first']['id']?>">
                     <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($match['first']['title'], '/players/') ?>
+                    <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
                 </div>
                 <div class="results-score"><?= $match['match_score'] ?></div>
                 <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['second']['id']?>">
                     <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($match['second']['title'], '/players/') ?>
+                    <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
                     <div></div>
                 </div>
             </div>

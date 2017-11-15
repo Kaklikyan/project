@@ -56,7 +56,7 @@ footer {
 }
 
 .create-team, .my-team-content {
-    background-image: url("/images/crossword.png");
+    background-image: url("../images/crossword.png");
     padding: 20px;
 }
 
@@ -540,4 +540,44 @@ table{
 
 .challenge-cancel a {
     color: #ffaf00;
+}
+
+.team-challenges {
+    padding: 15px 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+
+.challenge-content {
+    text-align: center;
+    display: flex;
+}
+
+.challenge-content img {
+    width: 45px;
+}
+
+.challenge-arrow {
+    min-width: 100px;
+    max-width: 100px;
+    line-height: 45px;
+}
+
+.challenge-details {
+    border: 1px solid #1595e06b;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.challenge-details-button {
+    min-width: 30px;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
+    color: #ff6329;
+    font-size: 16px;
 }

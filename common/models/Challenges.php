@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\models\Teams;
 use Yii;
 use yii\db\ActiveRecord;
 
@@ -57,5 +58,13 @@ class Challenges extends ActiveRecord
             'vest' => 'Vest',
             'previous_match_id' => 'Previous Match ID',
         ];
+    }
+
+    public function getChallengeFrom() {
+        return $this->hasOne(Teams::className(), ['id' => 'from']);
+    }
+
+    public function getChallengeTo() {
+        return $this->hasOne(Teams::className(), ['id' => 'to']);
     }
 }

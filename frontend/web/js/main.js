@@ -330,4 +330,9 @@ $(document).ready(function () {
     $('.rematch-waiting').click(function () {
         $(this).prev().is(':visible') ? $(this).prev().hide() : $(this).prev().css('display', 'inline-block')
     });
+
+    // Showing challenge additional information on my team page
+    $('.challenge-details-button').on('click', function () {
+        $(this).parent().next().toggle();
+    })
 });

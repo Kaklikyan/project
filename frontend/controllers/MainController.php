@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use app\models\UploadForm;
+use common\models\Challenges;
 use common\models\Halls;
 use common\models\TeamInformation;
 use common\models\User;
@@ -180,8 +181,9 @@ class MainController extends ParentController
                 $query->andWhere(['captain' => 1]);
         }])->where(['team_id' => Yii::$app->user->identity->team_id])->asArray()->all();*/
 
-        $team_players = [];
+        $team_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->with('challengeFrom', 'challengeTo')->all();
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
+
 
         foreach ($team_data->players as $key => $player) {
             if($player->is_user == 'no'){
@@ -191,9 +193,10 @@ class MainController extends ParentController
             }
         }
 
-        return $this->render('/main/my-team', compact('team_data', 'team_players'));
+        return $this->render('/main/my-team', compact('team_data', 'team_players', 'team_challenges'));
     }
 
+    // Provide team's matches infromation
     public function actionTeamInfo($key) {
         switch ($key) {
             case 'total' :
