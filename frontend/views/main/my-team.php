@@ -41,13 +41,17 @@ $confirm_players_array = [];
                 <div class="challenge-details-button"><i class="fa fa-bars" aria-hidden="true"></i><span style="color: #ff6329; margin-left: 4px">Details</span></div>
             </div>
             <div class="challenge-details">
-                <div>Challenge was mad - <?=$challenge->challenge_date?></div>
+                <div style="float: right">Challenge was mad - <?=$challenge->challenge_date?></div>
                 <div>Challenge id #<?=$challenge->id?></div>
                 <div>Previous match id #<?=$challenge->previous_match_id?></div>
                 <div>Expecting match date - <?=$challenge->date?></div>
                 <div>Duration - <?=$challenge->duration?></div>
                 <div>Referee - <?=$challenge->referee?></div>
                 <div>Vest - <?=$challenge->vest?></div>
+                <ul style="text-align: right; padding: 0; margin: 0;">
+                    <li style="display: inline-block"><?=Html::a('Cancel', Url::to('/match/cancel/'. $challenge->id), ['class' => 'btn btn-danger'])?></li>
+                    <li style="display: inline-block"><?=Html::a('Confirm', '/match/confirm/'. $challenge->id, ['class' => 'btn btn-success'])?></li>
+                </ul>
             </div>
         <?php endforeach ?>
     </div>
