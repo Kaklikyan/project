@@ -16,7 +16,7 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
-class MatchController extends Controller
+class ChallengeController extends Controller
 {
 
     public function behaviors(){
@@ -31,7 +31,7 @@ class MatchController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'challenge', 'cancel'],
+                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'create', 'cancel', 'remove'],
                         'roles' => ['@']
                     ]
                 ],
@@ -50,7 +50,7 @@ class MatchController extends Controller
         return parent::beforeAction($action);
     }*/
 
-    public function actionChallenge() {
+    public function actionCreate() {
         if (Yii::$app->request->post()){
 
             $post_data = Yii::$app->request->post();
@@ -75,11 +75,21 @@ class MatchController extends Controller
         }
     }
 
-    public function actionCancel($id) {
+    public function actionCancel($id)
+    {
+        $challenge = Challenges::findOne($id);
+        $challenge->status = 0;
+        if ($challenge->update()) {
+            Yii::$app->session->setFlash('challenge-canceled', 'Challenge is canceled');
+            return $this->redirect('/main/my-team');
+        }
+    }
+
+    public function actionRemove($id) {
 
         $challenge = Challenges::findOne($id);
         if($challenge->delete()){
-            Yii::$app->session->setFlash('rematch-cancel', 'Challenge is canceled');
+            Yii::$app->session->setFlash('rematch-remove', 'Challenge is canceled');
             return $this->redirect('/main/team-info/wins');
         }
     }
