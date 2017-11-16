@@ -309,7 +309,7 @@ $(document).ready(function () {
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        $.post("/match/challenge",
+        $.post("/challenge/create",
             {   field_id : field_id,
                 date: date,
                 duration: duration,
