@@ -31,6 +31,7 @@ return [
                     'defaults' => ['id' => ''],
                 ],
 
+                'match/remove/<id:\d+>' => 'match/remove',
                 'match/cancel/<id:\d+>' => 'match/cancel',
 
 
