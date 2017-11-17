@@ -38,7 +38,7 @@ $confirm_players_array = [];
                     <?=Html::img('@web/images/' . $challenge->challengeTo->title . '/' . $challenge->challengeTo->logo)?>
                     <?= $challenge->challengeTo->id != $team_data->id ? Html::a($challenge->challengeTo->title, Url::to('/teams/' . $challenge->challengeTo->id)) : '<span style="font-weight: bold; color: green">' . $challenge->challengeTo->title . '</span>'?>
                 </div>
-                <div class="challenge-details-button"><i class="fa fa-bars" aria-hidden="true"></i><span style="color: #ff6329; margin-left: 4px">Details</span></div>
+                <div class="challenge-details-button"><i class="fa fa-bars" aria-hidden="true"></i><span style="color: #bab6b5; margin-left: 4px">Details</span></div>
             </div>
             <div class="challenge-details">
                 <div style="float: right">Challenge was mad - <?=$challenge->challenge_date?></div>
@@ -50,9 +50,9 @@ $confirm_players_array = [];
                 <div>Vest - <?=$challenge->vest?></div>
                 <ul style="text-align: right; padding: 0; margin: 0;">
                     <?php if ($challenge->from == $team_data->id) : ?>
-                        <li style="display: inline-block"><?=Html::a('Remove', Url::to('/challenge/remove/'. $challenge->id), ['class' => 'btn btn-danger'])?></li>
+                        <li style="display: inline-block;"><?=Html::a('Cancel', Url::to('/challenge/cancel/'. $challenge->id), ['class' => 'btn btn-warning'])?></li>
                     <?php else : ?>
-                        <li style="display: inline-block"><?=Html::a('Cancel', Url::to('/challenge/cancel/'. $challenge->id), ['class' => 'btn btn-warning'])?></li>
+                        <li style="display: inline-block"><?=Html::a('Refuse', Url::to('/challenge/refuse/'. $challenge->id), ['class' => 'btn btn-danger'])?></li>
                         <li style="display: inline-block"><?=Html::a('Confirm', '/challenge/confirm/'. $challenge->id, ['class' => 'btn btn-success'])?></li>
                     <?php endif; ?>
                 </ul>

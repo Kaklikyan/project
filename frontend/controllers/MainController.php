@@ -175,15 +175,11 @@ class MainController extends ParentController
 
     public  function actionMyTeam() {
 
-        //print_r(Yii::$app->user->identity->team_id);die;
-
-        /*$team_data = Teams::find()->joinWith(['players' => function (ActiveQuery $query) {
-                $query->andWhere(['captain' => 1]);
-        }])->where(['team_id' => Yii::$app->user->identity->team_id])->asArray()->all();*/
-
+        $active_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['status' => 1])->with('challengeFrom', 'challengeTo')->all();
+        $refused_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['status' => 0])->with('challengeFrom', 'challengeTo')->all();
+        $confirmed_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->with('challengeFrom', 'challengeTo')->all();
         $team_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->with('challengeFrom', 'challengeTo')->all();
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
-
 
         foreach ($team_data->players as $key => $player) {
             if($player->is_user == 'no'){

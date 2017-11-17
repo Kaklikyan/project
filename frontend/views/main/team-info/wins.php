@@ -16,9 +16,9 @@ $this->title = 'Wins - ' . $current_team->title;
         <?=Yii::$app->session->getFlash('rematch')?>
     </div>
 <?php endif; ?>
-<?php if(Yii::$app->session->hasFlash('rematch-remove')) :?>
+<?php if(Yii::$app->session->hasFlash('rematch-cancel')) :?>
     <div class="alert alert-danger" style="text-align: center">
-        <?=Yii::$app->session->getFlash('rematch-remove')?>
+        <?=Yii::$app->session->getFlash('rematch-cancel')?>
     </div>
 <?php endif; ?>
 
@@ -31,7 +31,7 @@ $this->title = 'Wins - ' . $current_team->title;
                 </div>
                 <div class="col-md-6 col-md-offset-2 results-top-buttons">
                     <?php if (strpos($match['challenges']['challenge_key'],$match['first']['id'].$match['second']['id']) !== false && $match['challenges']['status'] == 1) : ?>
-                        <div class="challenge-cancel">Waiting challenge response | <a style="color: #ffaf00" href="<?= Url::to(['/challenge/remove', 'id' => $match['challenges']['id']]) ?>">Remove</a></div>
+                        <div class="challenge-cancel">Waiting challenge response | <a style="color: #ffaf00" href="<?= Url::to(['/challenge/cancel', 'id' => $match['challenges']['id']]) ?>">Cancel</a></div>
                         <?= Html::img('@web/images/time-left.png', ['class' => 'rematch-waiting', 'data-hash' => $match['first']['id'].$match['second']['id']]);?>
                     <?php else : ?>
                         <?= Html::img('@web/images/three-circling-arrows.png', ['style' => 'margin-right: 8px;', 'class' => 'results-rematch', 'data-toggle'=>"modal",  'data-target'=>"#rematch-modal"]);?>

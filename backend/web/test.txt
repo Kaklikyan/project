@@ -1,1 +1,25 @@
-<li id='1' ><img src="/backend/web/images/halls/1/main.jpg" alt="" style="width: 100%"></li><li id='4' ><img src="/backend/web/images/halls/4/main.jpg" alt="" style="width: 100%"></li>
+http://ec.term.biflorica.dev/admin/plantationInvoices/index
+http://ec.term.biflorica.dev/admin/users/NotActive
+http://ec.term.biflorica.dev/admin/users/sellers
+http://ec.term.biflorica.dev/admin/users/buyers
+http://ec.term.biflorica.dev/admin/users/agents
+http://ec.term.biflorica.dev/admin/users/trucks
+http://ec.term.biflorica.dev/admin/billing/BuyerDeals
+http://ec.term.biflorica.dev/admin/reclamations
+http://ec.term.biflorica.dev/admin/billing/BuyerBalancev5
+http://ec.term.biflorica.dev/admin/billing/BuyerBalancev7
+http://ec.term.biflorica.dev/admin/relations/BuyersFastOld
+http://ec.term.biflorica.dev/admin/relations/SellersFastV2
+http://ec.term.biflorica.dev/admin/relations/BuyersFastV2
+http://ec.term.biflorica.dev/admin/commissionCheck
+http://ec.term.biflorica.dev/admin/balanceCheck
+http://ec.term.biflorica.dev/admin/analytics/plantationsDynamicAll
+http://ec.term.biflorica.dev/admin/analytics/logRequests
+http://ec.term.biflorica.dev/admin/billing/plantationsActivity
+http://ec.term.biflorica.dev/admin/sorts/index
+http://ec.term.biflorica.dev/admin/plantations/index
+http://ec.term.biflorica.dev/admin/countries/index
+http://ec.term.biflorica.dev/admin/cities/index
+http://ec.term.biflorica.dev/admin/messages/massSent
+http://ec.term.biflorica.dev/MarketPlaceNew/default/upload
+http://ec.term.biflorica.dev/admin/debug/saldoSupplierSixty

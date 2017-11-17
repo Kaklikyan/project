@@ -31,7 +31,7 @@ class ChallengeController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'create', 'cancel', 'remove', 'confirm'],
+                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'create', 'refuse', 'cancel', 'confirm'],
                         'roles' => ['@']
                     ]
                 ],
@@ -74,24 +74,28 @@ class ChallengeController extends Controller
     }
 
     public function actionConfirm($id) {
-        echo 'die';
-    }
-
-    public function actionCancel($id)
-    {
-
         $challenge = Challenges::findOne($id);
-        $challenge->status = 0;
-        if ($challenge->update()) {
-            Yii::$app->session->setFlash('challenge-canceled', 'Challenge is canceled');
+        $challenge->confirmed = 1;
+        if ($challenge->update()){
+            Yii::$app->session->setFlash('challenge-confirmed', 'Challenge confirmed');
             return $this->redirect('/main/my-team');
         }
     }
 
-    public function actionRemove($id) {
+    public function actionRefuse($id)
+    {
+        $challenge = Challenges::findOne($id);
+        $challenge->status = 0;
+        if ($challenge->update()) {
+            Yii::$app->session->setFlash('challenge-refused', 'Challenge refused');
+            return $this->redirect('/main/my-team');
+        }
+    }
+
+    public function actionCancel($id) {
         $challenge = Challenges::findOne($id);
         if($challenge->delete()){
-            Yii::$app->session->setFlash('rematch-remove', 'Challenge is canceled');
+            Yii::$app->session->setFlash('rematch-cancel', 'Challenge canceled');
             return $this->redirect(Yii::$app->request->referrer);
         }
     }
