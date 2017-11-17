@@ -20,6 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $previous_match_id
  * @property string $challenge_key
  * @property integer $status
+ * @property integer $confirmed
  */
 class Challenges extends ActiveRecord
 {
@@ -37,7 +38,7 @@ class Challenges extends ActiveRecord
     public function rules()
     {
         return [
-            [['from', 'to', 'referee', 'vest', 'previous_match_id', 'status'], 'integer'],
+            [['from', 'to', 'referee', 'vest', 'previous_match_id', 'status', 'confirmed'], 'integer'],
             [['date', 'challenge_date'], 'safe'],
             [['duration', 'challenge_key'], 'string', 'max' => 255],
         ];
@@ -50,6 +51,7 @@ class Challenges extends ActiveRecord
     {
         return [
             'id' => 'ID',
+            'confirmed' => 'Confirmed',
             'from' => 'From',
             'to' => 'To',
             'date' => 'Date',

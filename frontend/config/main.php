@@ -31,8 +31,9 @@ return [
                     'defaults' => ['id' => ''],
                 ],
 
-                'match/remove/<id:\d+>' => 'match/remove',
-                'match/cancel/<id:\d+>' => 'match/cancel',
+                'challenge/remove/<id:\d+>' => 'challenge/remove',
+                'challenge/confirm/<id:\d+>' => 'challenge/confirm',
+                'challenge/cancel/<id:\d+>' => 'challenge/cancel',
 
 
                 '<action>'=>'site/<action>',

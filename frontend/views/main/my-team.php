@@ -25,7 +25,7 @@ $confirm_players_array = [];
     <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
 </div>
 <?php if ($team_challenges) : ?>
-    <h3 style="color: #848484;">Challenges</h3>
+    <h3 style="color: #848484;">Challenges from my team</h3>
     <div class="team-challenges">
         <?php foreach ($team_challenges as $challenge) : ?>
             <div class="challenge-content">
@@ -49,8 +49,12 @@ $confirm_players_array = [];
                 <div>Referee - <?=$challenge->referee?></div>
                 <div>Vest - <?=$challenge->vest?></div>
                 <ul style="text-align: right; padding: 0; margin: 0;">
-                    <li style="display: inline-block"><?=Html::a('Cancel', Url::to('/match/cancel/'. $challenge->id), ['class' => 'btn btn-danger'])?></li>
-                    <li style="display: inline-block"><?=Html::a('Confirm', '/match/confirm/'. $challenge->id, ['class' => 'btn btn-success'])?></li>
+                    <?php if ($challenge->from == $team_data->id) : ?>
+                        <li style="display: inline-block"><?=Html::a('Remove', Url::to('/challenge/remove/'. $challenge->id), ['class' => 'btn btn-danger'])?></li>
+                    <?php else : ?>
+                        <li style="display: inline-block"><?=Html::a('Cancel', Url::to('/challenge/cancel/'. $challenge->id), ['class' => 'btn btn-warning'])?></li>
+                        <li style="display: inline-block"><?=Html::a('Confirm', '/challenge/confirm/'. $challenge->id, ['class' => 'btn btn-success'])?></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         <?php endforeach ?>

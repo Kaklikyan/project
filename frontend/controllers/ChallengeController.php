@@ -31,7 +31,7 @@ class ChallengeController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'create', 'cancel', 'remove'],
+                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'create', 'cancel', 'remove', 'confirm'],
                         'roles' => ['@']
                     ]
                 ],
@@ -52,12 +52,10 @@ class ChallengeController extends Controller
 
     public function actionCreate() {
         if (Yii::$app->request->post()){
-
             $post_data = Yii::$app->request->post();
-
             $model = new Challenges();
-
             $model->challenge_key = $post_data['challenge_key'];
+            $model->confirmed = 0;
             $model->from = $post_data['from'];
             $model->to = $post_data['to'];
             $model->previous_match_id = $post_data['previous_match_id'];
@@ -75,8 +73,13 @@ class ChallengeController extends Controller
         }
     }
 
+    public function actionConfirm($id) {
+        echo 'die';
+    }
+
     public function actionCancel($id)
     {
+
         $challenge = Challenges::findOne($id);
         $challenge->status = 0;
         if ($challenge->update()) {
@@ -86,11 +89,10 @@ class ChallengeController extends Controller
     }
 
     public function actionRemove($id) {
-
         $challenge = Challenges::findOne($id);
         if($challenge->delete()){
             Yii::$app->session->setFlash('rematch-remove', 'Challenge is canceled');
-            return $this->redirect('/main/team-info/wins');
+            return $this->redirect(Yii::$app->request->referrer);
         }
     }
 }
