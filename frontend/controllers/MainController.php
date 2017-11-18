@@ -35,6 +35,7 @@ class MainController extends ParentController
          return $this->render('news');
      }
 
+    // Create team if user doesn't has
     public function actionCreateTeam() {
 
         $model = new Teams();
@@ -175,10 +176,6 @@ class MainController extends ParentController
 
     public  function actionMyTeam() {
 
-        $active_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['status' => 1])->with('challengeFrom', 'challengeTo')->all();
-        $refused_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['status' => 0])->with('challengeFrom', 'challengeTo')->all();
-        $confirmed_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->with('challengeFrom', 'challengeTo')->all();
-        $team_challenges = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->with('challengeFrom', 'challengeTo')->all();
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
 
         foreach ($team_data->players as $key => $player) {
@@ -189,7 +186,7 @@ class MainController extends ParentController
             }
         }
 
-        return $this->render('/main/my-team', compact('team_data', 'team_players', 'team_challenges'));
+        return $this->render('/main/my-team', compact('team_data', 'team_players'));
     }
 
     // Provide team's matches infromation

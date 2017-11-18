@@ -90,8 +90,9 @@ NavBar::end();
                             'encodeLabels' => false,
                             'heading' => 'Main menu',
                             'items' => [
-                                ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == 'index')],
+                                ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
                                 ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'my-team')],
+                                ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'index')],
 
                                 ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
                                     [

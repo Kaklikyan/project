@@ -31,8 +31,8 @@ return [
                     'defaults' => ['id' => ''],
                 ],
 
-                'challenge/refuse/<id:\d+>' => 'challenge/refuse',
-                'challenge/confirm/<id:\d+>' => 'challenge/confirm',
+                'challenge/refuse/<id:\d+>/<whom:\d+>' => 'challenge/refuse',
+                'challenge/confirm/<id:\d+>/<whom:\d+>' => 'challenge/confirm',
                 'challenge/cancel/<id:\d+>' => 'challenge/cancel',
 
 
