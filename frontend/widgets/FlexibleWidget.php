@@ -10,9 +10,7 @@ namespace frontend\widgets;
 
 class FlexibleWidget extends \yii\base\Widget
 {
-    public $first_component;
-    public $second_component;
-    public $third_component;
+    public $challenge_data;
 
     public function init()
     {
@@ -21,7 +19,7 @@ class FlexibleWidget extends \yii\base\Widget
 
     public function run()
     {
-        return $this->render('flexible', ['first_component' => $this->first_component, 'second_component' => $this->second_component, 'third_component' => $this->third_component]);
+        return $this->render('flexible', ['challenge_data' => $this->challenge_data]);
     }
 
 }

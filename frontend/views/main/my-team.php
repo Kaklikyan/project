@@ -26,7 +26,7 @@ $confirm_players_array = [];
     <h3 style="display: inline-block; margin: 0"><?= $team_data->title; ?></h3>
     <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
 </div>
-<?php if($closest_challenge) echo FlexibleWidget::widget(['first_component' => $closest_challenge->challengeFrom, 'second_component' => 'VS', 'third_component' => $closest_challenge->challengeTo]); ?>
+<?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
 
     <!--<div class="closest_challenge">
         <div><?/*=$closest_challenge->challengeFrom->title*/?></div>

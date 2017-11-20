@@ -15,7 +15,7 @@ $this->registerCss('
         display: flex; 
         text-align: center; 
         border: 2px solid #d95d05;
-        padding: 20px 10px;
+        padding: 10px;
     }
     
     .parent-flex-div div:first-child, .parent-flex-div div:last-child{
@@ -24,7 +24,7 @@ $this->registerCss('
     
     .parent-flex-div div:nth-child(2) {
         min-width: 100px;
-        line-height: 45px;
+        line-height: 23px;
     }
 
     img {
@@ -34,15 +34,16 @@ $this->registerCss('
 
 ?>
 
-<div>asdasd</div>
+
 <div class="parent-flex-div">
     <div>
-        <?= Html::img('@web/images/' . $first_component->title . '/' . $first_component->logo)?>
-        <?= Html::a($first_component->title, Url::to(['/teams/', 'id' => $first_component->id]))?>
+        <?= Html::img('@web/images/' . $challenge_data->challengeFrom->title . '/' . $challenge_data->challengeFrom->logo)?>
+        <?= Html::a($challenge_data->challengeFrom->title, Url::to(['/teams/', 'id' => $challenge_data->challengeFrom->id]))?>
     </div>
-    <div><?=$second_component?></div>
+    <div><?=date("d-D/M/Y \<\b\\r\> H:i", strtotime($challenge_data->challenge_date));?></div>
     <div>
-        <?= Html::img('@web/images/' . $third_component->title . '/' . $third_component->logo)?>
-        <?= Html::a($third_component->title, Url::to(['/teams/', 'id' => $third_component->id]))?>
+        <?= Html::img('@web/images/' . $challenge_data->challengeTo->title . '/' . $challenge_data->challengeTo->logo)?>
+        <?= Html::a($challenge_data->challengeTo->title, Url::to(['/teams/', 'id' => $challenge_data->challengeTo->id]))?>
+        <span style="float: right"><?=Html::a('All Challenges', '/challenge/')?></span>
     </div>
 </div>
