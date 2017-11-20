@@ -14,7 +14,6 @@ $this->registerCss('
     .parent-flex-div {
         display: flex; 
         text-align: center; 
-        border: 2px solid #d95d05;
         padding: 10px;
     }
     
@@ -34,8 +33,15 @@ $this->registerCss('
 
 ?>
 
-
-<div class="parent-flex-div">
+<div class="results-content-top" style="background: #43b882;">
+    <div class="col-md-4 results-date">Yerevan -
+        fghdfgh
+    </div>
+    <div class="col-md-6 col-md-offset-2 results-top-buttons">
+        <?=Html::a('All Challenges', '/challenge/', ['style' => 'color: white;display: block; line-height: 32px; text-decoration: underline'])?>
+    </div>
+</div>
+<div class="parent-flex-div" style="border: 1px solid #00000045; border-top: none;">
     <div>
         <?= Html::img('@web/images/' . $challenge_data->challengeFrom->title . '/' . $challenge_data->challengeFrom->logo)?>
         <?= Html::a($challenge_data->challengeFrom->title, Url::to(['/teams/', 'id' => $challenge_data->challengeFrom->id]))?>
@@ -44,6 +50,6 @@ $this->registerCss('
     <div>
         <?= Html::img('@web/images/' . $challenge_data->challengeTo->title . '/' . $challenge_data->challengeTo->logo)?>
         <?= Html::a($challenge_data->challengeTo->title, Url::to(['/teams/', 'id' => $challenge_data->challengeTo->id]))?>
-        <span style="float: right"><?=Html::a('All Challenges', '/challenge/')?></span>
     </div>
 </div>
+
