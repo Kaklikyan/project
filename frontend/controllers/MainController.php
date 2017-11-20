@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\UploadForm;
 use common\models\Challenges;
+use common\models\ChallengeTeamStatistic;
 use common\models\Halls;
 use common\models\TeamInformation;
 use common\models\User;
@@ -176,6 +177,8 @@ class MainController extends ParentController
 
     public  function actionMyTeam() {
 
+        $closest_challenge = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->orderBy('challenge_date asc')->limit(1)->with('challengeFrom', 'challengeTo')->one();
+
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
 
         foreach ($team_data->players as $key => $player) {
@@ -186,7 +189,7 @@ class MainController extends ParentController
             }
         }
 
-        return $this->render('/main/my-team', compact('team_data', 'team_players'));
+        return $this->render('/main/my-team', compact('team_data', 'team_players', 'closest_challenge'));
     }
 
     // Provide team's matches infromation

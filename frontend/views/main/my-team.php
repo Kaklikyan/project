@@ -3,7 +3,9 @@
 /* @var  \frontend\models\Teams $team_data */
 /* @var  \frontend\models\Teams $team_players */
 /* @var  \frontend\models\Teams $team_challenges */
+/* @var  \frontend\models\Teams $closest_challenge */
 
+use frontend\widgets\FlexibleWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -24,6 +26,14 @@ $confirm_players_array = [];
     <h3 style="display: inline-block; margin: 0"><?= $team_data->title; ?></h3>
     <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
 </div>
+<?php if($closest_challenge) echo FlexibleWidget::widget(['first_component' => $closest_challenge->challengeFrom, 'second_component' => 'VS', 'third_component' => $closest_challenge->challengeTo]); ?>
+
+    <!--<div class="closest_challenge">
+        <div><?/*=$closest_challenge->challengeFrom->title*/?></div>
+        <div>VS</div>
+        <div><?/*=$closest_challenge->challengeTo->title*/?></div>
+    </div>-->
+
 <div class="team-information clearfix">
     <div class="container-fluid">
         <div class="row">
