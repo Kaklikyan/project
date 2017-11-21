@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property string $challenge_key
  * @property integer $status
  * @property integer $confirmed
+ * @property integer $field_id
  */
 class Challenges extends ActiveRecord
 {
@@ -38,7 +39,7 @@ class Challenges extends ActiveRecord
     public function rules()
     {
         return [
-            [['from', 'to', 'referee', 'vest', 'previous_match_id', 'status', 'confirmed'], 'integer'],
+            [['from', 'to', 'referee', 'vest', 'previous_match_id', 'status', 'confirmed', 'field_id'], 'integer'],
             [['date', 'challenge_date'], 'safe'],
             [['duration', 'challenge_key'], 'string', 'max' => 255],
         ];
@@ -52,6 +53,7 @@ class Challenges extends ActiveRecord
         return [
             'id' => 'ID',
             'confirmed' => 'Confirmed',
+            'field_id' => 'Field ID',
             'from' => 'From',
             'to' => 'To',
             'date' => 'Date',
@@ -68,5 +70,10 @@ class Challenges extends ActiveRecord
 
     public function getChallengeTo() {
         return $this->hasOne(Teams::className(), ['id' => 'to']);
+    }
+
+    public function getField()
+    {
+        return $this->hasOne(Halls::className(), ['id' => 'field_id']);
     }
 }

@@ -27,7 +27,7 @@ class ParentController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info'],
+                        'actions' => ['index','something', 'news', 'create-team', 'file-upload', 'my-team', 'team-info', 'fields'],
                         'roles' => ['@']
                     ]
                 ],

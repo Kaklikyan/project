@@ -30,6 +30,11 @@ return [
                     'route' => 'teams/',
                     'defaults' => ['id' => ''],
                 ],
+                [
+                    'pattern' => 'fields/<id:\d+>',
+                    'route' => 'fields/',
+                    'defaults' => ['id' => ''],
+                ],
 
                 'challenge/refuse/<id:\d+>/<whom:\d+>' => 'challenge/refuse',
                 'challenge/confirm/<id:\d+>/<whom:\d+>' => 'challenge/confirm',

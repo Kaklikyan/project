@@ -80,7 +80,7 @@ NavBar::end();
                 <div id="leftMenu">
                     <?php
 
-                    $item = Yii::$app->controller->action->id;
+                    $item = Yii::$app->controller->id;
 
                     $user_team = \common\models\User::find()->select('in_team')->where(['id' => Yii::$app->user->id])->one();
 
@@ -91,8 +91,9 @@ NavBar::end();
                             'heading' => 'Main menu',
                             'items' => [
                                 ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
-                                ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'my-team')],
-                                ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'index')],
+                                ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
+                                ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'challenge')],
+                                ['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
 
                                 ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
                                     [

@@ -14,6 +14,7 @@ use frontend\models\TeamPlayers;
 use frontend\models\Teams;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -177,7 +178,9 @@ class MainController extends ParentController
 
     public  function actionMyTeam() {
 
-        $closest_challenge = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->orderBy('challenge_date asc')->limit(1)->with('challengeFrom', 'challengeTo')->one();
+        $closest_challenge = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->orderBy('challenge_date asc')->limit(1)->with(['challengeFrom', 'challengeTo', 'field' => function(ActiveQuery $q){
+            $q->select(['id', 'address']);
+        }])->one();
 
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
 

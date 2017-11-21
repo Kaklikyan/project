@@ -68,6 +68,7 @@ class ChallengeController extends Controller
             $model = new Challenges();
             $model->challenge_key = $post_data['challenge_key'];
             $model->confirmed = 0;
+            $model->field_id = $post_data['field_id'];
             $model->from = $post_data['from'];
             $model->to = $post_data['to'];
             $model->previous_match_id = $post_data['previous_match_id'];
