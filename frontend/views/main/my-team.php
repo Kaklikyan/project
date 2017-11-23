@@ -4,8 +4,10 @@
 /* @var  \frontend\models\Teams $team_players */
 /* @var  \frontend\models\Teams $team_challenges */
 /* @var  \frontend\models\Teams $closest_challenge */
+/* @var  \frontend\models\Teams $last_matches_data */
 
 use frontend\widgets\FlexibleWidget;
+use frontend\widgets\TeamStatisticsWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -18,16 +20,17 @@ $this->registerCss('
     ');
 
 $confirm_players = false;
-$confirm_players_array = [];
+$confirm_players_array = []
 
 ?>
 
-<div class="my-team-content-top clearfix">
-    <h3 style="display: inline-block; margin: 0"><?= $team_data->title; ?></h3>
-    <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
+<div class="my-team-content-top clearfix" style="display: flex">
+    <div style="flex: 1;"><span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
+        <h3 style="display: inline-block; margin: 0; vertical-align: bottom"><?= $team_data->title; ?></h3>
+    </div>
+    <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
-<!--Closest challenge widget-->
-<?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
+
 <div class="team-information clearfix">
     <div class="container-fluid">
         <div class="row">
@@ -37,12 +40,24 @@ $confirm_players_array = [];
                 </div>
             <?php else :?>
                 <div class="col-md-3 no-padding">
-                    <div class="team-information-column">
-                        <div class="team-appearing-div">
-                            <a href="<?= Url::to(['main/team-info', 'key' => 'total']); ?>" class="btn btn-primary btn-sm team-information-button">View more</a>
-                        </div>
-                        <h4>Total games</h4>
+                    <div class="team-information-column detail-active">
+                        <!--<div class="team-appearing-div">
+                            <a href="<?/*= Url::to(['main/team-info', 'key' => 'total']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
+                        </div>-->
+                        <h4>All Matches</h4>
                         <?= $team_data->information->games_count ?>
+                        <?=Html::img('@web/images/arrow-point-to-down.png',
+                            ['style' =>
+                                'position: absolute;
+                            bottom: -7px;
+                            vertical-align: bottom;
+                            transform: translateX(-50%);
+                            left: 50%;
+                            width: 28px'
+                            ]);
+                        ?>
+                    </div>
+                    <div>
                     </div>
                 </div>
                 <div class="col-md-3 no-padding">
@@ -75,87 +90,29 @@ $confirm_players_array = [];
             <?php endif; ?>
         </div>
     </div>
+    <div style="background: white; border: 1px solid #ccc;">
+        <?php foreach($last_matches_data as $match) : ?>
+            <div class="results-content-bottom">
+                <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['first']['id']?>">
+                    <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
+                    <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+                </div>
+                <div class="results-score"><?= $match['match_score'] ?></div>
+                <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['second']['id']?>">
+                    <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
+                    <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
+                    <div></div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>
-<div class="my-team-content-main clearfix">
-    <table class="players-table table table-hover">
-        <thead class="thead-inverse">
-            <tr>
-                <th>Player name</th>
-                <th>Age</th>
-                <th>Level</th>
-                <th>Goals</th>
-                <th>Passes</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($team_players as $player) : ?>
-                <?php if (isset($player->is_user) != 'no') : ?>
-                    <?php $confirm_players = true; $confirm_players_array[] = $player ?>
-                <?php else: ?>
-                    <tr>
-                        <td data-toggle="modal" data-target="<?='#'.$player->id?>">
-                            <?= $player->player_name ;?>
-                            <?php if ($player->captain == 1) : ?>
-                                <span class="player-is-captain">
-                                    <?= Html::img('/images/fsd.png', ['style' => 'height: 30px']) ;?>
-                                </span>
-                            <?php endif; ?>
-                        </td>
-                        <td><?= date('Y') - Yii::$app->formatter->asDate($player->player_date, 'Y'); ?></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>
-                            <div id="<?=$player->id?>" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container-fluid">
-                                                <div class="row" style="display: flex; flex-flow: row wrap;">
-                                                    <h4 class="modal-title" style="padding: 0 15px; width: 100%;"><?=$player->player_name?></h4>
-                                                    <div class="col-md-5">
-                                                        <div class="player-modal-left">
-                                                            <img src="<?= '/images/' . $team_data->title . '/players/' . $player->player_name . '.png'?>" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <div class="player-modal-right">
-                                                            <div>Shoots level : </div>
-                                                            <div>Pass level : </div>
-                                                            <div>Speed level : </div>
-                                                            <div>Physic level : </div>
-                                                            <div>Team leader level : </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h4 style="margin-top: 45px;">Player description</h4>
-                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
+<!--Closest challenge widget-->
+<?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
+<!--Team statistics widget-->
+<?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
 
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
 <?php if($confirm_players) : ?>
     <div class="need-confirm-players clearfix">
         <h4>These players didn't confirm your invite yet</h4>

@@ -18,7 +18,8 @@ $this->registerCss('
         text-align: center; 
         padding: 10px;
         border: 1px solid #00000045;
-        border-top: none
+        border-top: none;
+        margin-bottom: 20px;
     }
     
     .parent-flex-div a {
@@ -41,9 +42,9 @@ $this->registerCss('
 
 ?>
 <!--class="results-content-top"-->
-<div style="background: #43b882; display: flex; padding: 5px 10px;">
-    <div style="flex: 1; text-align: left;color: white">Yerevan - <?=Html::a($challenge_data->field->address, Url::to('/fields/' . $challenge_data->field->id))?></div>
-    <div style="min-width: 200px; text-align: center; color: gold;"><h4 style="margin: 0">Closest Challenge</h4></div>
+<div style="background: #43b882; display: flex; padding: 5px 10px; margin-top: 20px">
+    <div style="flex: 1; text-align: left;color: white">Yerevan - <?=Html::a($challenge_data->field->address, Url::to('/fields/' . $challenge_data->field->id), ['style' => 'color:white'])?></div>
+    <div style="min-width: 200px; text-align: center; color: #c7ff7a;"><h4 style="margin: 0">Closest Challenge</h4></div>
     <div style="flex: 1; text-align: right;">
         <?=Html::a('All Challenges', '/challenge/', ['style' => 'color: white; text-decoration: underline;'])?>
     </div>

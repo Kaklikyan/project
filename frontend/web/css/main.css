@@ -186,7 +186,7 @@ footer {
 }
 
 .my-team-image {
-    width: 240px;
+    width: 45px
 }
 
 .my-team-content-player-image {
@@ -203,7 +203,7 @@ footer {
     margin: 0 auto;
 }
 
-.level-count, .goals-count, .passes-count, .player-is-captain, .player-date, .my-team-image, .my-team-content-top-image {
+.level-count, .goals-count, .passes-count, .player-is-captain, .player-date {
     float: right;
 }
 
@@ -295,14 +295,6 @@ footer {
 
 .results-team a:hover {
     text-decoration: underline;
-}
-
-.results-loser {
-    /*box-shadow: 0 0 20px 3px rgba(200, 0, 0, 0.25);*/
-}
-
-.results-winner {
-    /*box-shadow: 0 0 20px 3px rgba(0, 200, 0, 0.25);*/
 }
 
 .result-current-team {
@@ -421,7 +413,7 @@ table{
     font-weight: 500;
     font-size: 14px;
     color: #c6ff7a;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .top-td td{
     padding: 15px;
