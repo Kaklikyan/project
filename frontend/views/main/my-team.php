@@ -4,7 +4,8 @@
 /* @var  \frontend\models\Teams $team_players */
 /* @var  \frontend\models\Teams $team_challenges */
 /* @var  \frontend\models\Teams $closest_challenge */
-/* @var  \frontend\models\Teams $last_matches_data */
+/* @var  \frontend\models\Teams $few_matches_data */
+/* @var  \frontend\models\Teams $last_match_data */
 
 use frontend\widgets\FlexibleWidget;
 use frontend\widgets\TeamStatisticsWidget;
@@ -32,7 +33,7 @@ $confirm_players_array = []
 </div>
 
 <div class="team-information clearfix">
-    <div class="container-fluid">
+    <div style="cursor: pointer;" class="container-fluid">
         <div class="row">
             <?php if (empty($team_data->information)) : ?>
                 <div style="padding: 48px 0">
@@ -40,49 +41,40 @@ $confirm_players_array = []
                 </div>
             <?php else :?>
                 <div class="col-md-3 no-padding">
-                    <div class="team-information-column detail-active">
+                    <div id="all-matches" class="team-information-column detail-active">
                         <!--<div class="team-appearing-div">
                             <a href="<?/*= Url::to(['main/team-info', 'key' => 'total']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
                         </div>-->
                         <h4>All Matches</h4>
                         <?= $team_data->information->games_count ?>
-                        <?=Html::img('@web/images/arrow-point-to-down.png',
-                            ['style' =>
-                                'position: absolute;
-                            bottom: -7px;
-                            vertical-align: bottom;
-                            transform: translateX(-50%);
-                            left: 50%;
-                            width: 28px'
-                            ]);
-                        ?>
+                        <img src="/images/arrow-point-to-down.png" alt="" style="position: absolute; bottom: -7px; vertical-align: bottom; transform: translateX(-50%); left: 50%; width: 28px">
                     </div>
                     <div>
                     </div>
                 </div>
                 <div class="col-md-3 no-padding">
-                    <div class="team-information-column">
-                        <div class="team-appearing-div">
-                            <a href="<?= Url::to(['main/team-info', 'key' => 'wins']); ?>" class="btn btn-primary btn-sm team-information-button">View more</a>
-                        </div>
+                    <div id="no-data" class="team-information-column">
+                        <!--<div class="team-appearing-div">
+                            <a href="<?/*= Url::to(['main/team-info', 'key' => 'wins']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
+                        </div>-->
                         <h4>Total wins</h4>
                         <?= $team_data->information->number_of_wins ?>
                     </div>
                 </div>
                 <div class="col-md-3 no-padding">
-                    <div class="team-information-column">
-                        <div class="team-appearing-div">
-                            <a href="<?= Url::to(['main/team-info', 'key' => 'looses']); ?>" class="btn btn-primary btn-sm team-information-button">View more</a>
-                        </div>
-                        <h4>Total looses</h4>
+                    <div id="last-match-data" class="team-information-column">
+                        <!--<div class="team-appearing-div">
+                            <a href="<?/*= Url::to(['main/team-info', 'key' => 'looses']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
+                        </div>-->
+                        <h4>Last Match</h4>
                         <?= $team_data->information->number_of_looses ?>
                     </div>
                 </div>
                 <div class="col-md-3 no-padding">
                     <div class="team-information-column-last">
-                        <div class="team-appearing-div">
+                        <!--<div class="team-appearing-div">
                             <a href="" class="btn btn-primary">View more</a>
-                        </div>
+                        </div>-->
                         <h4>Total players</h4>
                         <?= $team_data->information->number_of_players ?>
                     </div>
@@ -90,21 +82,42 @@ $confirm_players_array = []
             <?php endif; ?>
         </div>
     </div>
-    <div style="background: white; border: 1px solid #ccc;">
-        <?php foreach($last_matches_data as $match) : ?>
-            <div class="results-content-bottom">
-                <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['first']['id']?>">
-                    <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+    <div class="team-details-parent">
+        <!--Last match data block-->
+        <div class="last-match-data" style="background: white; border: 1px solid #ccc; display: none;">
+            <?php foreach($last_match_data as $match) : ?>
+                <div style="display: flex;">
+                    <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['first']['id']?>">
+                        <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
+                        <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+                    </div>
+                    <div class="results-score"><?= $match['match_score'] ?></div>
+                    <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['second']['id']?>">
+                        <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
+                        <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
+                        <div></div>
+                    </div>
                 </div>
-                <div class="results-score"><?= $match['match_score'] ?></div>
-                <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['second']['id']?>">
-                    <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
-                    <div></div>
+            <?php endforeach; ?>
+        </div>
+        <div class="no-data" style="display: none;"><h3 style="text-align: center">There is no data</h3></div>
+        <!--All matches data block-->
+        <div class="all-matches" style="background: white; border: 1px solid #ccc;">
+            <?php foreach($few_matches_data as $match) : ?>
+                <div style="display: flex">
+                    <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['first']['id']?>">
+                        <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
+                        <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+                    </div>
+                    <div class="results-score"><?= $match['match_score'] ?></div>
+                    <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>" data-team ="<?=$match['second']['id']?>">
+                        <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
+                        <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
+                        <div></div>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
 

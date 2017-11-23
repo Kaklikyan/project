@@ -241,22 +241,21 @@ footer {
     background-color: #e7e7e7;
     margin: 40px 0;
     color: black;
-    cursor: pointer;
 }
 
-.team-appearing-div {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.5);
-    bottom: 100%;
-    transition: all.4s ease;
-}
+/*.team-appearing-div {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*position: absolute;*/
+    /*background: rgba(0, 0, 0, 0.5);*/
+    /*bottom: 100%;*/
+    /*transition: all.4s ease;*/
+/*}*/
 
-.team-information-column:hover .team-appearing-div {
-    display: block;
-    bottom: 0;
-}
+/*.team-information-column:hover .team-appearing-div {*/
+    /*display: block;*/
+    /*bottom: 0;*/
+/*}*/
 
 .player-modal-right div {
     flex: 1;

@@ -33,9 +33,6 @@ $(document).ready(function () {
         return Math.floor(Math.random() * 10) + 1;
     }
 
-    // Tooltip settings
-    //$('[data-toggle="rematch-waiting"]').tooltip();
-
     // Add player card in "Create Team" page (need to rework)
     $('#add-player').off();
     $('#add-player').on('click', function(){
@@ -271,7 +268,6 @@ $(document).ready(function () {
     // Make clear team content div after modal closing
     $('#rematch-modal').on('hidden.bs.modal', function () {
         $(this).find('.teams-content').html('');
-
     });
 
     // Rematch ajax functionality
@@ -334,5 +330,25 @@ $(document).ready(function () {
     // Showing challenge additional information on my team page
     $('.challenge-details-button').on('click', function () {
         $(this).parent().next().toggle();
-    })
+    });
+
+    //Team additional information active class changing
+   $('.team-information-column').on('click', function () {
+       var current_block_id = $(this).attr('id');
+
+       $(this).addClass('detail-active');
+       $('.team-information-column').not($(this)).removeClass('detail-active');
+
+       $('.team-information-column').each(function () {
+           if($(this).hasClass('detail-active'))
+               $(this).append('<img src="/images/arrow-point-to-down.png" alt="" style="position: absolute; bottom: -7px; vertical-align: bottom; transform: translateX(-50%); left: 50%; width: 28px">');
+           else
+               $(this).find('img').remove();
+       });
+
+       $('.team-details-parent').children('div').each(function () {
+          if($(this).hasClass(current_block_id)) $(this).show();
+          else $(this).hide();
+       });
+   });
 });
