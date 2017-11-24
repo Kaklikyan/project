@@ -39,7 +39,7 @@ AppAsset::register($this);
 <?php
 NavBar::begin([
     'brandLabel' => 'Football',
-    'brandUrl' => Yii::$app->homeUrl,
+    'brandUrl' => '/main/my-team',
     'options' => [
         'class' => 'navbar-inverse navbar-fixed-top',
     ],

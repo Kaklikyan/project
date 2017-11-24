@@ -42,9 +42,9 @@ $this->registerCss('
 
 ?>
 <!--class="results-content-top"-->
-<div style="background: #43b882; display: flex; padding: 5px 10px; margin-top: 20px">
+<div style="background: linear-gradient(to bottom right, #214f29, #08ccb0); display: flex; padding: 5px 10px; margin-top: 20px">
     <div style="flex: 1; text-align: left;color: white">Yerevan - <?=Html::a($challenge_data->field->address, Url::to('/fields/' . $challenge_data->field->id), ['style' => 'color:white'])?></div>
-    <div style="min-width: 200px; text-align: center; color: #c7ff7a;"><h4 style="margin: 0">Closest Challenge</h4></div>
+    <div style="min-width: 200px; text-align: center;"><h4 style="margin: 0; color: white">Closest Challenge</h4></div>
     <div style="flex: 1; text-align: right;">
         <?=Html::a('All Challenges', '/challenge/', ['style' => 'color: white; text-decoration: underline;'])?>
     </div>
