@@ -65,6 +65,7 @@ class ChallengeController extends Controller
     public function actionCreate() {
         if (Yii::$app->request->post()){
             $post_data = Yii::$app->request->post();
+
             $model = new Challenges();
             $model->challenge_key = $post_data['challenge_key'];
             $model->confirmed = 0;

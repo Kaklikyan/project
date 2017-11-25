@@ -18,7 +18,7 @@ return [
             //'suffix' => '.html',
             'rules' => [
                 '' => 'site/index',
-                'main/team-info/<key:\w+>' => 'main/team-info',
+                'main/matches/<key:\w+>' => 'main/matches',
 
                 [
                     'pattern' => 'players/<id:\d+>',

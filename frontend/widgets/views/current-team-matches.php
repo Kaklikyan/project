@@ -1,17 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: FS05
+ * Date: 25/11/17
+ * Time: 12:48
+ */
 
 use yii\helpers\Html;
-use \kartik\datetime\DateTimePicker;
 use yii\helpers\Url;
 
-$this->title = 'Wins - ' . $current_team->title;
-    //print_r($wins_data);die;
 
 ?>
 
-<h3>Winning Matches</h3>
-
-<?php foreach ($wins_data['matches'] as $match) : ?>
+<?php foreach ($matches['matches'] as $match) : ?>
     <div id="match-<?=$match['id']?>" class="results-content" >
         <div class="results-content-main">
             <div class="results-content-top">
@@ -86,7 +87,4 @@ $this->title = 'Wins - ' . $current_team->title;
     </div>
     <hr style="width: 30%; border-color: #d4d4d4">
 <?php endforeach; ?>
-
-
-
 

@@ -2,17 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: FS05
- * Date: 20/11/17
- * Time: 12:23
+ * Date: 25/11/17
+ * Time: 13:00
  */
 
 namespace frontend\widgets;
 
+
 use yii\base\Widget;
 
-class FlexibleWidget extends Widget
+class RematchModalWidget extends Widget
 {
-    public $challenge_data;
+
+    public $halls;
 
     public function init()
     {
@@ -21,7 +23,7 @@ class FlexibleWidget extends Widget
 
     public function run()
     {
-        return $this->render('flexible', ['challenge_data' => $this->challenge_data]);
+        return $this->render('rematch-modal', ['halls' => $this->halls]);
     }
 
 }

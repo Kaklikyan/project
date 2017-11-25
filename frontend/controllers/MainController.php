@@ -200,10 +200,31 @@ class MainController extends ParentController
         return $this->render('/main/my-team', compact('team_data', 'team_players', 'closest_challenge', 'few_matches_data', 'last_match_data'));
     }
 
-    // Provide team's matches infromation
-    public function actionTeamInfo($key) {
+    // Provide team's matches information
+    public function actionMatches($key = null) {
+
+        $halls = new Halls();
+        $halls = $halls->find()->all();
+
+        if($key) {
+            $match = MatchesInfo::find()->where(['id' => $key])->with(['challenges','first', 'second', 'matchInfoStatistics' => function(ActiveQuery $z) {
+                $z->with('goal', 'pass');
+            }])->asArray()->one();
+
+            return $this->render('matches', compact('match', 'halls'));
+
+        }
+
+        $matches = TeamInformation::find()->where(['team_id' => Yii::$app->user->identity['team_id']])->with(['matches' => function(ActiveQuery $q) {
+            $q->andWhere(['match_winner' => Yii::$app->user->identity['team_id']])->indexBy('id')->orderBy(['match_date' => SORT_DESC])->with(['challenges','first', 'second', 'matchInfoStatistics' => function(ActiveQuery $z) {
+                $z->with('goal', 'pass');
+            }]);
+        }])->asArray()->one();;
+
+        return $this->render('matches', compact('matches', 'halls'));
+
         switch ($key) {
-            case 'total' :
+            case null :
 
                 /*$wins_data = TeamInformation::find(['team_id' => Yii::$app->user->identity['team_id']])->innerJoinWith(['matches' => function(ActiveQuery $q) {
                     $q->andWhere(['!=', 'match_winner', Yii::$app->user->identity['team_id']]);
@@ -215,7 +236,7 @@ class MainController extends ParentController
             case 'wins' :
 
                 $halls = new Halls();
-                $halls = $halls->find()->all();
+
 
                 $current_team = Teams::findOne(Yii::$app->user->identity['team_id']);
 
