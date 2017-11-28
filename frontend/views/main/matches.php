@@ -23,6 +23,7 @@ use frontend\widgets\RematchModalWidget;
 
     if(isset($match)) echo CurrentTeamMatchWidget::widget(['match' => $match]);
     else echo CurrentTeamMatchWidget::widget(['matches' => $matches]);
+
     echo RematchModalWidget::widget(['halls' => $halls]);
 
 ?>

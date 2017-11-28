@@ -81,6 +81,7 @@ NavBar::end();
                     <?php
 
                     $item = Yii::$app->controller->id;
+                    $action = Yii::$app->controller->action->id;
 
                     $user_team = \common\models\User::find()->select('in_team')->where(['id' => Yii::$app->user->id])->one();
 
@@ -100,6 +101,14 @@ NavBar::end();
                                         ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/news'])]
                                     ],
                                 ],
+
+                                ['label' => 'Other', 'icon' => 'other','active' => ($item == 'other'), 'items' =>
+                                    [
+                                        ['label' => 'Teams', 'icon' => 'team', 'active' => ($action == 'teams'), 'url' => Url::to(['/other/teams'])],
+                                        ['label' => 'Players', 'icon' => 'player', 'active' => ($action == 'players'), 'url' => Url::to(['/other/players'])]
+                                    ],
+                                ],
+
                                 ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']),  'active' => ($item == 'something')],
                                 ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']), 'active' => ($item == 'something')],
 
@@ -132,7 +141,7 @@ NavBar::end();
             </div>
         </div>
         <div class="col-md-7">
-            <div class="my-team-content">
+            <div class="my-team-content clearfix">
                 <?= $content ?>
             </div>
         </div>

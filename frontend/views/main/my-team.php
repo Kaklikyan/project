@@ -25,14 +25,14 @@ $confirm_players_array = []
 
 ?>
 
-<div class="my-team-content-top clearfix" style="display: flex">
+<div class="my-team-content-top" style="display: flex">
     <div style="flex: 1;"><span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
         <h3 style="display: inline-block; margin: 0; vertical-align: bottom"><?= $team_data->title; ?></h3>
     </div>
     <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
 
-<div class="team-information clearfix">
+<div class="team-information">
     <div style="cursor: pointer;" class="container-fluid">
         <div class="row">
             <?php if (empty($team_data->information)) : ?>
@@ -126,7 +126,7 @@ $confirm_players_array = []
 <?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
 
 <?php if($confirm_players) : ?>
-    <div class="need-confirm-players clearfix">
+    <div class="need-confirm-players">
         <h4>These players didn't confirm your invite yet</h4>
         <?php foreach ($confirm_players_array as $confirm_player_array) : ?>
             <div class="col-md-3">
