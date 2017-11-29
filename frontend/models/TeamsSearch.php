@@ -18,7 +18,7 @@ class TeamsSearch extends Teams
     {
         return [
 //            [['title', 'logo'], 'required'],
-            [['creator', 'challenge'], 'integer'],
+            [['creator', 'challenge', 'level'], 'integer'],
             [['title', 'logo'], 'string', 'max' => 255],
             [['title'], 'unique', 'message'=>'This name already exists'],
             [['imageFile'], 'file', 'extensions' => 'png, jpg'],

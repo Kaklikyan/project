@@ -600,3 +600,7 @@ table{
     display: flex;
     border: none;
 }
+
+.teams-gridview th {
+    text-align: center;
+}
