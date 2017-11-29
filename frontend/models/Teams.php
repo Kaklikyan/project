@@ -55,6 +55,10 @@ class Teams extends \yii\db\ActiveRecord
             'title' => 'Title',
             'logo' => 'Logo',
             'challenge' => 'Challenge',
+            'information.number_of_wins' => 'Wins',
+            'information.games_count' => 'Matches',
+            'information.number_of_looses' => 'Looses',
+            'information.number_of_players' => 'Players'
         ];
     }
 
