@@ -48,11 +48,11 @@ class Players extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'is_user' => 'Is User',
-            'in_team' => 'In Team',
+            'in_team' => 'Team',
             'goals' => 'Goals',
             'passes' => 'Passes',
             'name' => 'Name',
-            'date' => 'Date',
+            'date' => 'Age',
             'captain' => 'Captain',
             'best_player_count' => 'Best Player Count',
             'photo' => 'Photo',

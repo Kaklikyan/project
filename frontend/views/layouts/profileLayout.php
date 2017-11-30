@@ -94,7 +94,7 @@ NavBar::end();
                                 ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
                                 ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
                                 ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'challenge')],
-                                ['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
+                                //['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
 
                                 ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
                                     [
@@ -105,7 +105,8 @@ NavBar::end();
                                 ['label' => 'Other', 'icon' => 'other','active' => ($item == 'other'), 'items' =>
                                     [
                                         ['label' => 'Teams', 'icon' => 'team', 'active' => ($action == 'teams'), 'url' => Url::to(['/other/teams'])],
-                                        ['label' => 'Players', 'icon' => 'player', 'active' => ($action == 'players'), 'url' => Url::to(['/other/players'])]
+                                        ['label' => 'Players', 'icon' => 'player', 'active' => ($action == 'players'), 'url' => Url::to(['/other/players'])],
+                                        ['label' => 'Fields', 'icon' => 'field', 'active' => ($action == 'fields'), 'url' => Url::to(['/other/fields'])]
                                     ],
                                 ],
 

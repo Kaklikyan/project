@@ -49,6 +49,30 @@ echo GridView::widget([
             },
         ],
         'level',
+        'information.games_count',
+        [
+            'attribute' => 'information.number_of_wins',
+            'format' => 'raw',
+            'value' => function($data){
+                if ($data->information['games_count']){
+                    $percentage = ($data->information['number_of_wins'] * 100) / $data->information['games_count'];
+                    $result =  ($percentage > 50) ?  $data->information['number_of_wins'] . ' - ' . '<span style="color: green">' . round($percentage, 1).'%</span>' : $data->information['number_of_wins'] . ' - ' . '<span style="color: red">' . round($percentage, 1).'%</span>';
+                    return $result;
+                }
+            }
+        ],
+
+        [
+            'attribute' => 'information.number_of_looses',
+            'format' => 'raw',
+            'value' => function($data){
+                if ($data->information['games_count']){
+                    $percentage = ($data->information['number_of_looses'] * 100) / $data->information['games_count'];
+                    $result =  ($percentage > 50) ?  $data->information['number_of_looses'] . ' - ' . '<span style="color: red">' . round($percentage, 1).'%</span>' : $data->information['number_of_looses'] . ' - ' . '<span style="color: green">' . round($percentage, 1).'%</span>';
+                    return $result;
+                }
+            }
+        ],
         [
             'attribute' => 'Creator',
             'format' => 'raw',
@@ -58,29 +82,13 @@ echo GridView::widget([
             },
         ],
         [
-            'attribute' => 'Challenge',
+            'attribute' => 'challenge',
             'format' => 'raw',
             'value' => function($data){
                 if($data->challenge == 0) return '<span style="color: red">Off</span>';
                 else return '<span style="color: green">On</span>';
             }
         ],
-
-        'information.games_count',
-
-        [
-            'attribute' => 'Wins',
-            'format' => 'raw',
-            'value' => function($data){
-                if ($data->information['games_count']){
-                    $percentage = ($data->information['number_of_wins'] * 100) / $data->information['games_count'];
-                    return ($data->information['number_of_wins'] . ' | ' . ($percentage > 50) ? '<span style="color: green">' .$percentage.'%</span>' : '<span style="color: red">'.$percentage.'%</span>');
-                }
-            }
-        ],
-
-        'information.number_of_wins',
-        'information.number_of_looses',
         'information.number_of_players',
         // 'address',
         // 'length',

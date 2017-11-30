@@ -32,4 +32,11 @@ class OtherController extends ParentController
 
         return $this->render('players', compact('dataProvider', 'searchModel'));
     }
+
+    public function actionFields($id = null) {
+        if ($id === null){
+            return $this->render('fields');
+        }else
+            return $this->render('fields');
+    }
 }

@@ -6,8 +6,11 @@
  * Time: 16:34
  */
 
+use frontend\models\Teams;
 use yii\grid\GridView;
 use yii\helpers\Html;
+
+$this->title = 'Players';
 
 ?>
 
@@ -18,18 +21,67 @@ use yii\helpers\Html;
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
+    //'filterModel' => $searchModel,
     'rowOptions' => ['style' => 'text-align: center'],
+    'tableOptions' => [
+        'class' => 'table table-striped table-bordered players-gridview'
+    ],
     'columns' => [
-        'id',
-        'name',
+        [
+            'attribute' => 'name',
+            'format' => 'raw',
+            'contentOptions'=>[ 'style'=>'width: 150px; text-align: left'],
+            'headerOptions'=>[ 'style'=>'width: 150px'],
+            'value' => function($data){
+                return Html::a($data->name, '/players/' . $data->id);
+            }
+        ],
+        [
+            'attribute' => 'in_team',
+            'format' => 'raw',
+            'contentOptions'=>[ 'style'=>'width: 150px; text-align: left'],
+            'headerOptions'=>[ 'style'=>'width: 150px'],
+            'value' => function($data){
+                if ($data->in_team != 0){
+                    $team = Teams::findOne($data->in_team);
+                    return Html::img('@web/images/' . $team->title . '/' . $team->logo, ['style' => 'width: 32px']) . Html::a($team->title, '/teams/' . $team->id);;
+                }else {
+                    return 'Free Agent';
+                }
+            }
+        ],
+        [
+            'attribute' => 'date',
+            'value' => function($data){
+                $age = date_diff(date_create($data->date), date_create('now'))->y;
+                return $age;
+            }
+        ],
+        [
+            'attribute' => 'goals',
+            'value' => function($data){
+                return $data->goals;
+            }
+        ],
+        [
+            'attribute' => 'passes',
+            'value' => function($data) {
+                return $data->passes;
+            }
+        ],
+        [
+            'attribute' => 'captain',
+            'value' => function($data) {
+                if ($data->captain) return 'Yes';
+                else return 'No';
+            }
+        ],
+
         // 'address',
         // 'length',
         // 'width',
         // 'total_matches',
         // 'description',
-
-        ['class' => 'yii\grid\ActionColumn'],
     ],
 
 ])

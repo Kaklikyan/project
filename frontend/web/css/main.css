@@ -601,6 +601,21 @@ table{
     border: none;
 }
 
-.teams-gridview th {
+.players-gridview th, .players-gridview th a, .teams-gridview th, .teams-gridview th a {
     text-align: center;
+    color: #337ab7;
+    font-size: 16px;
+}
+
+.players-gridview td, .teams-gridview td {
+    vertical-align: middle !important;
+}
+
+.players-gridview a, .teams-gridview td a {
+    color: #333;
+    text-decoration: none;
+}
+
+.players-gridview td a:hover, .teams-gridview td a:hover {
+    border-bottom: 1px solid #333;
 }
