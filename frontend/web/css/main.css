@@ -12,7 +12,7 @@
 }
 
 body {
-    padding-top: 70px;
+    padding-top: 50px;
     margin: 0;
     font-family: 'Proxima Nova';
     background-color: #e7e7e7;
@@ -42,6 +42,57 @@ footer {
     background-color: #00bfd8;
     margin-top: 100px;
     padding: 50px 0;
+}
+
+#full-page-content {
+    display: flex;
+    padding-left: 288px;
+}
+
+#center-content {
+    width: 100%;
+}
+
+#left-menu{
+    min-width: 288px;
+    flex: 1;
+    background: linear-gradient(to bottom right, #307fb7, #08ccb0);;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: 100%;
+}
+
+.left-menu-nav {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.left-menu-bottom {
+    position: absolute;
+    bottom: 70px;
+    width: 100%;
+}
+
+.left-menu-bottom ul {
+    list-style: none;
+    padding: 0 15px;
+    margin: 0;
+}
+
+.left-menu-bottom ul li a{
+    color: black;
+}
+
+.left-menu-nav li a {
+    color: white;
+    border: none !important;
+}
+
+#additional-widget {
+    min-width: 320px;
+    flex: 1;
 }
 
 .footerLeft,.footerMiddle, .footerRight {

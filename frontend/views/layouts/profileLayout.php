@@ -11,6 +11,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use kartik\sidenav\SideNav;
 use yii\helpers\Url;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -73,90 +74,93 @@ NavBar::end();
 ]) ?>
 <?= Alert::widget() ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="row">
-                <div id="leftMenu">
-                    <?php
+<div id="full-page-content">
+    <div id="left-menu">
+        <?php
 
-                    $item = Yii::$app->controller->id;
-                    $action = Yii::$app->controller->action->id;
+        $item = Yii::$app->controller->id;
+        $action = Yii::$app->controller->action->id;
 
-                    $user_team = \common\models\User::find()->select('in_team')->where(['id' => Yii::$app->user->id])->one();
+        $user_team = \common\models\User::find()->select('in_team')->where(['id' => Yii::$app->user->id])->one();
 
-                    if($user_team->in_team == 1){
-                        echo SideNav::widget([
-                            'type' => SideNav::TYPE_DEFAULT,
-                            'encodeLabels' => false,
-                            'heading' => 'Main menu',
-                            'items' => [
-                                ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
-                                ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
-                                ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'challenge')],
-                                //['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
+        if($user_team->in_team == 1){
+            echo SideNav::widget([
+                'type' => SideNav::TYPE_DEFAULT,
+                'encodeLabels' => false,
+                'heading' => 'Main menu',
+                'containerOptions' => [
+                        'class' => 'left-menu-nav',
+                ],
+                'items' => [
+                    ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
+                    ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
+                    ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'challenge')],
+                    //['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
 
-                                ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
-                                    [
-                                        ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/news'])]
-                                    ],
-                                ],
+                    ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
+                        [
+                            ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/news'])]
+                        ],
+                    ],
 
-                                ['label' => 'Other', 'icon' => 'other','active' => ($item == 'other'), 'items' =>
-                                    [
-                                        ['label' => 'Teams', 'icon' => 'team', 'active' => ($action == 'teams'), 'url' => Url::to(['/other/teams'])],
-                                        ['label' => 'Players', 'icon' => 'player', 'active' => ($action == 'players'), 'url' => Url::to(['/other/players'])],
-                                        ['label' => 'Fields', 'icon' => 'field', 'active' => ($action == 'fields'), 'url' => Url::to(['/other/fields'])]
-                                    ],
-                                ],
+                    ['label' => 'Other', 'icon' => 'other','active' => ($item == 'other'), 'items' =>
+                        [
+                            ['label' => 'Teams', 'icon' => 'team', 'active' => ($action == 'teams'), 'url' => Url::to(['/other/teams'])],
+                            ['label' => 'Players', 'icon' => 'player', 'active' => ($action == 'players'), 'url' => Url::to(['/other/players'])],
+                            ['label' => 'Fields', 'icon' => 'field', 'active' => ($action == 'fields'), 'url' => Url::to(['/other/fields'])]
+                        ],
+                    ],
 
-                                ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']),  'active' => ($item == 'something')],
-                                ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']), 'active' => ($item == 'something')],
+                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']),  'active' => ($item == 'something')],
+                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']), 'active' => ($item == 'something')],
 
-                            ],
-                         ]);
-                    }else{
-                        echo SideNav::widget([
-                            'type' => SideNav::TYPE_DEFAULT,
-                            'encodeLabels' => false,
-                            'heading' => 'Main menu',
-                            'items' => [
-                                    ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == 'index')],
-                            ['label' => 'Ստեխծել թիմ', 'icon' => 'home', 'url' => Url::to(['/main/create-team']),  'active' => ($item == 'create-team')],
+                ],
+            ]);
+        }else{
+            echo SideNav::widget([
+                'type' => SideNav::TYPE_DEFAULT,
+                'encodeLabels' => false,
+                'heading' => 'Main menu',
+                'items' => [
+                    ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == 'index')],
+                    ['label' => 'Ստեխծել թիմ', 'icon' => 'home', 'url' => Url::to(['/main/create-team']),  'active' => ($item == 'create-team')],
 
 
-                            ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
-                                [
-                                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/news'])]
-                                ],
-                            ],
-                            ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']),  'active' => ($item == 'something')],
-                            ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']), 'active' => ($item == 'something')],
+                    ['label' => 'My profile', 'icon' => 'user','active' => ($item == 'news'), 'items' =>
+                        [
+                            ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/news'])]
+                        ],
+                    ],
+                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']),  'active' => ($item == 'something')],
+                    ['label' => 'Home', 'icon' => 'home', 'url' => Url::to(['/main/something']), 'active' => ($item == 'something')],
 
-                            ],
-                        ]);
-                    }
+                ],
+            ]);
+        }
 
-                    ?>
-                </div>
-            </div>
+        ?>
+        <div class="left-menu-bottom">
+            <ul>
+                <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                <li>Settings</li>
+                <li></li>
+            </ul>
         </div>
-        <div class="col-md-7">
-            <div class="my-team-content clearfix">
-                <?= $content ?>
-            </div>
+    </div>
+    <div id="center-content">
+        <div class="my-team-content clearfix">
+            <?= $content ?>
         </div>
-        <div class="col-md-3">
-            <div class="row">
-                <?= 'asdasd' ?>
-            </div>
-        </div>
+    </div>
+    <div id="additional-widget">
+        <?= 'asdasd' ?>
     </div>
 </div>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 
 <?php $this->endBody() ?>
+asdasd
 </body>
 </html>
 <?php $this->endPage() ?>
