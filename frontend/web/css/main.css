@@ -77,12 +77,15 @@ footer {
 
 .left-menu-bottom ul {
     list-style: none;
-    padding: 0 15px;
     margin: 0;
+    padding: 0;
 }
 
 .left-menu-bottom ul li a{
     color: black;
+    padding: 0 15px;
+    font-size: 16px;
+    text-decoration: none;
 }
 
 .left-menu-nav li a {

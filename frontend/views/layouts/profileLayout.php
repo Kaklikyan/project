@@ -141,8 +141,8 @@ NavBar::end();
         ?>
         <div class="left-menu-bottom">
             <ul>
-                <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
-                <li>Settings</li>
+                <li><a href=""><i class="fa fa-user" aria-hidden="true"></i>  Profile</a></li>
+                <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i>  Settings</a></li>
                 <li></li>
             </ul>
         </div>
