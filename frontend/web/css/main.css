@@ -15,7 +15,7 @@ body {
     padding-top: 50px;
     margin: 0;
     font-family: 'Proxima Nova';
-    background-color: #e7e7e7;
+    background-color: white;
 }
 
 .text h3 {
@@ -46,7 +46,7 @@ footer {
 
 #full-page-content {
     display: flex;
-    padding-left: 288px;
+    padding-left: 215px;
 }
 
 #center-content {
@@ -54,16 +54,18 @@ footer {
 }
 
 #left-menu{
-    min-width: 288px;
+    min-width: 215px;
     flex: 1;
-    background: linear-gradient(to bottom right, #307fb7, #08ccb0);;
+    background: teal;
     position: fixed;
     top: 50px;
     left: 0;
     height: 100%;
+    box-shadow: 0px 0 4px 0px;
 }
 
 .left-menu-nav {
+    margin-top: 20px;
     background-color: transparent;
     border: none;
     box-shadow: none;
@@ -82,15 +84,40 @@ footer {
 }
 
 .left-menu-bottom ul li a{
-    color: black;
+    color: #3a3434;
     padding: 0 15px;
     font-size: 16px;
     text-decoration: none;
 }
 
+.top-nav-bar {
+    box-shadow: 0 -1px 4px 0 black;
+    background-color: #008080;
+    border-color: #008080;
+}
+
+.top-nav-bar a {
+    color: white !important;
+}
+
+.left-menu-nav li {
+    margin: 0 !important;
+}
+
+.left-menu-nav .active a{
+    background-color: #00796b !important;
+}
+
 .left-menu-nav li a {
     color: white;
     border: none !important;
+}
+
+.left-menu-nav li a:hover {
+    background-color: #00796b;
+}
+.left-menu-nav li a:focus{
+    background-color: transparent;
 }
 
 #additional-widget {
@@ -115,8 +142,8 @@ footer {
 }
 
 .create-team, .my-team-content {
-    background-image: url("../images/crossword.png");
-    padding: 20px;
+    /*background-image: url("../images/crossword.png");*/
+    padding: 10px 20px;
 }
 
 #players-line {

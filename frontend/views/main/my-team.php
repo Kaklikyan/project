@@ -9,6 +9,7 @@
 
 use frontend\widgets\FlexibleWidget;
 use frontend\widgets\TeamStatisticsWidget;
+use yii\bootstrap\Nav;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -21,7 +22,33 @@ $this->registerCss('
     ');
 
 $confirm_players = false;
-$confirm_players_array = []
+$confirm_players_array = [];
+
+
+echo Nav::widget([
+    'items' => [
+        [
+            'label' => 'Home',
+            'url' => ['site/index'],
+        ],
+        [
+            'label' => 'Dropdown',
+            'items' => [
+                ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
+                '<li class="divider"></li>',
+                '<li class="dropdown-header">Dropdown Header</li>',
+                ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
+            ],
+        ],
+        [
+            'label' => 'Login',
+            'url' => ['site/login'],
+            'visible' => Yii::$app->user->isGuest
+        ],
+    ],
+    'options' => ['class' =>'nav-pills'], // set this to nav-tab to get tab-styled navigation
+]);
+
 
 ?>
 

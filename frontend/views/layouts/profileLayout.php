@@ -41,8 +41,9 @@ AppAsset::register($this);
 NavBar::begin([
     'brandLabel' => 'Football',
     'brandUrl' => '/main/my-team',
+    'innerContainerOptions' => ['class' => 'container-fluid'],
     'options' => [
-        'class' => 'navbar-inverse navbar-fixed-top',
+        'class' => 'navbar-inverse navbar-fixed-top top-nav-bar',
     ],
 ]);
 $menuItems = [
@@ -87,13 +88,12 @@ NavBar::end();
             echo SideNav::widget([
                 'type' => SideNav::TYPE_DEFAULT,
                 'encodeLabels' => false,
-                'heading' => 'Main menu',
                 'containerOptions' => [
                         'class' => 'left-menu-nav',
                 ],
                 'items' => [
                     ['label' => 'News', 'icon' => 'home', 'url' => Url::to(['/main/index']),  'active' => ($item == '')],
-                    ['label' => 'My team', 'icon' => 'home', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
+                    ['label' => 'My team', 'icon' => 'dashboard', 'url' => Url::to(['/main/my-team']),  'active' => ($item == 'main')],
                     ['label' => 'Challenge', 'icon' => 'home', 'url' => Url::to(['/challenge/index']),  'active' => ($item == 'challenge')],
                     //['label' => 'Field', 'icon' => 'home', 'url' => '/fields/',  'active' => ($item == 'fields')],
 
