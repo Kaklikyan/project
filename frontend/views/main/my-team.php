@@ -59,6 +59,54 @@ echo Nav::widget([
     <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
 
+<p style="text-align: center; width: 80%; margin: 20px auto;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+</p>
+
+<div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b">
+    <div style="border-bottom: 3px solid #008080; display: flex">
+        <h3 style=" margin: 0; padding: 10px; flex: 1">Matches</h3>
+        <div style="flex: 1; position: relative;"><a href="/main/matches" style="position: absolute; bottom: 10px; right: 10px;"> View All Matches</a></div>
+    </div>
+    <div class="all-matches">
+        <?php foreach($few_matches_data as $match) : //print_r($match);die;?>
+            <div class="all-matches-each">
+                <div class="line-padding" style="font-weight: bold">
+                    <?=date("d-D/M/Y H:i", strtotime($match->match_date)); ?>
+                </div>
+                <div class="results-team">
+                    <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
+                    <?= ($match['first']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['first']['title'] .'</span>' : Html::a($match['first']['title'], Url::to(['/teams/', 'id' => $match['first']['id']]))?>
+                </div>
+                <div class="results-score"><?= $match['match_score']?></div>
+                <div class="results-team">
+                    <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
+                    <?= ($match['second']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['second']['title'] .'</span>' : Html::a($match['second']['title'], Url::to(['/teams/', 'id' => $match['second']['id']]))?>
+                    <div></div>
+                </div>
+                <div class="line-padding"><a href="/main/matches/<?=$match['id']?>"  class="btn btn-success">Match Details</a></div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<div class="">
+    <?php foreach($last_match_data as $match) : ?>
+        <div style="display: flex;">
+            <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
+                <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+            </div>
+            <div class="results-score"><?= $match['match_score'] ?></div>
+            <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
+                <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
+                <div></div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
 <div class="team-information">
     <div style="cursor: pointer;" class="container-fluid">
         <div class="row">

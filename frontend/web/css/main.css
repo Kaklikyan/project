@@ -15,7 +15,7 @@ body {
     padding-top: 50px;
     margin: 0;
     font-family: 'Proxima Nova';
-    background-color: white;
+    background-color: #f1f1f1;
 }
 
 .text h3 {
@@ -56,7 +56,7 @@ footer {
 #left-menu{
     min-width: 215px;
     flex: 1;
-    background: #f1f1f1;
+    background: white;
     position: fixed;
     top: 50px;
     left: 0;
@@ -284,10 +284,9 @@ footer {
 }
 
 .my-team-content-top {
-    background-color: #f1f1f1;
+    background-color: white;
     padding: 10px;
-    box-shadow: 1px 1px 5px -1px;
-    margin-bottom: 20px;
+    box-shadow: 0 0 4px -1px #68686b;
 }
 
 .my-team-content-player-bottom {
@@ -669,14 +668,6 @@ table{
     cursor: pointer;
     color: #bab6b5;;
     font-size: 16px;
-}
-
-.all-matches{
-    background: white;
-    border: 1px solid #e3e3e3;
-    border-top: none;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 }
 
 .all-matches-each {
