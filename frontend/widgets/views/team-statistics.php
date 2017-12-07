@@ -10,9 +10,8 @@ use yii\helpers\Html;
 
 $this->registerCss('
     .team-statistics {
-        background: linear-gradient(to bottom right, #15110f, #08ccb0);
-        padding: 12px;
-        border-radius: 3px;
+        background: white;
+        box-shadow: 0 0 4px -1px #68686b;
     }
     
     .team-statistics-th-text{
@@ -20,11 +19,10 @@ $this->registerCss('
         vertical-align: bottom;
     }
     
-    .team-statistics h2{
-        color: white;
-        margin: 0 0 6px 0;
-        border-bottom: 1px solid white;
-        display: inline-block;
+    .team-statistics h3{
+        color: inherit;
+        margin: 0;
+        padding: 10px;
     }
     
     .team-statistics .top-td td {
@@ -33,64 +31,73 @@ $this->registerCss('
         vertical-align: middle;
         font-weight: 300;
         font-size: 12px;
-        color: #fff;
-        border-bottom: solid 1px rgba(255,255,255,0.1);
-        border-right: solid 1px rgba(255,255,255,0.1);
+        color: #414142;
+        border-bottom: 1px solid #eee;
+        border-right: 1px solid #eee;
     }
-    
+        
     .team-statistics .top-tr th {
-        padding: 12px 0;
+        padding: 0;
         text-align: center;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 14px;
-        color: #c6ff7a;  
+        color: #337ab7;  
     }
 ');
 
 //print_r($team_players);die;
-
 ?>
 
 
+<!--//=Html::img('@web/images/wall-clock.png', ['style' => 'width: 24px; margin-right: 6px'])-->
+<!--//=Html::img('@web/images/play-movie.png', ['style' => 'width: 24px; margin-right: 6px'])-->
+<!--//=Html::img('@web/images/soccer-ball-variant.png', ['style' => 'width: 24px; margin-right: 6px'])-->
+<!--//=Html::img('@web/images/group.png', ['style' => 'width: 24px; margin-right: 6px'])-->
+<!--//=Html::img('@web/images/soccer-player-with-ball.png', ['style' => 'width: 24px; margin-right: 6px'])-->
+
+
+
 <div class="team-statistics">
-    <h2>Team Statistics</h2>
+    <div style="border-bottom: 3px solid #337ab7; margin-bottom: 10px"><h3>Team Statistics</h3></div>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
             <tr class="top-tr">
-                <th><?=Html::img('@web/images/group.png', ['style' => 'width: 24px; margin-right: 6px'])?><span class="team-statistics-th-text">Player</span></th>
-                <th><?=Html::img('@web/images/soccer-ball-variant.png', ['style' => 'width: 24px; margin-right: 6px'])?><span class="team-statistics-th-text">Age</span></th>
-                <th><?=Html::img('@web/images/soccer-player-with-ball.png', ['style' => 'width: 24px; margin-right: 6px'])?><span class="team-statistics-th-text">Goals</span></th>
-                <th><?=Html::img('@web/images/wall-clock.png', ['style' => 'width: 24px; margin-right: 6px'])?><span class="team-statistics-th-text">Assist</span></th>
-                <th><?=Html::img('@web/images/play-movie.png', ['style' => 'width: 24px; margin-right: 6px'])?><span class="team-statistics-th-text">Video</span></th>
+                <th><span class="team-statistics-th-text">Player</span></th>
+                <th><span class="team-statistics-th-text">Age</span></th>
+                <th><span class="team-statistics-th-text">Goals</span></th>
+                <th><span class="team-statistics-th-text">Assist</span></th>
+                <th><span class="team-statistics-th-text">Video</span></th>
             </tr>
             </thead>
         </table>
     </div>
-    <div class="tbl-content">
-        <table cellpadding="0" cellspacing="0" border="0">
-            <tbody>
-            <?php foreach ($team_players as $player) : ?>
-                <?php if (isset($player->is_user) != 'no') : ?>
-                    <?php $confirm_players = true; $confirm_players_array[] = $player ?>
-                <?php else: ?>
-                    <tr class="top-td">
-                        <td data-toggle="modal" data-target="<?='#'.$player->id?>">
-                            <?= $player->player_name ;?>
-                            <?php if ($player->captain == 1) : ?>
-                                <span class="player-is-captain">
+    <div style="padding: 10px">
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                <?php foreach ($team_players as $player) : ?>
+                    <?php if (isset($player->is_user) != 'no') : ?>
+                        <?php $confirm_players = true; $confirm_players_array[] = $player ?>
+                    <?php else: ?>
+                        <tr class="top-td">
+                            <td data-toggle="modal" data-target="<?='#'.$player->id?>">
+                                <?= $player->player_name ;?>
+                                <?php if ($player->captain == 1) : ?>
+                                    <span class="player-is-captain">
                                 <?= Html::img('/images/fsd.png', ['style' => 'height: 30px']) ;?>
                             </span>
-                            <?php endif; ?>
-                        </td>
-                        <td><?= date('Y') - Yii::$app->formatter->asDate($player->player_date, 'Y'); ?></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= date('Y') - Yii::$app->formatter->asDate($player->player_date, 'Y'); ?></td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

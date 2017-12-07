@@ -59,14 +59,16 @@ echo Nav::widget([
     <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
 
-<p style="text-align: center; width: 80%; margin: 20px auto;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+<p class="my-team-page-text">Improve team statistics to get highest rating in entire team's top</p>
 
-</p>
+<!--Team statistics widget-->
+<?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
+
+<p class="my-team-page-text">Total count of matches is <?=$team_data->information->games_count?>. <a href="/main/matches"> View All Matches</a></p>
 
 <div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b">
-    <div style="border-bottom: 3px solid #008080; display: flex">
-        <h3 style=" margin: 0; padding: 10px; flex: 1">Matches</h3>
-        <div style="flex: 1; position: relative;"><a href="/main/matches" style="position: absolute; bottom: 10px; right: 10px;"> View All Matches</a></div>
+    <div style="border-bottom: 3px solid #008080;">
+        <h3 style=" margin: 0; padding: 10px;">Matches</h3>
     </div>
     <div class="all-matches">
         <?php foreach($few_matches_data as $match) : //print_r($match);die;?>
@@ -197,8 +199,6 @@ echo Nav::widget([
 
 <!--Closest challenge widget-->
 <?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
-<!--Team statistics widget-->
-<?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
 
 <?php if($confirm_players) : ?>
     <div class="need-confirm-players">

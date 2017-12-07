@@ -8,7 +8,7 @@
 
 .line-padding {
     line-height: 45px;
-    padding: 14px;
+    padding: 10px;
 }
 
 body {
@@ -335,6 +335,12 @@ footer {
     /*color: black;*/
 }
 
+.my-team-page-text {
+    text-align: center;
+    width: 80%;
+    margin: 20px auto;
+}
+
 /*.team-appearing-div {*/
     /*width: 100%;*/
     /*height: 100%;*/
@@ -485,7 +491,8 @@ table{
 .tbl-content{
     overflow-x:auto;
     margin-top: 0;
-    border: 1px solid rgba(255,255,255,0.3);
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
 }
 
 .tbl-content a {
