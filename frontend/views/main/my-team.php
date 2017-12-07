@@ -6,6 +6,7 @@
 /* @var  \frontend\models\Teams $closest_challenge */
 /* @var  \frontend\models\Teams $few_matches_data */
 /* @var  \frontend\models\Teams $last_match_data */
+/* @var  \frontend\models\Teams $not_confirmed_players */
 
 use frontend\widgets\FlexibleWidget;
 use frontend\widgets\TeamStatisticsWidget;
@@ -53,8 +54,10 @@ echo Nav::widget([
 ?>
 
 <div class="my-team-content-top" style="display: flex">
-    <div style="flex: 1;"><span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
-        <h3 style="display: inline-block; margin: 0; vertical-align: bottom"><?= $team_data->title; ?></h3>
+    <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
+    <div style="flex: 1; line-height: 20px">
+        <h5 style="display: inline-block; margin: 0; vertical-align: bottom; color: #a2a1a1">Level <?= $team_data->level; ?></h5>
+        <h3 style="margin: 0; vertical-align: bottom"><?= $team_data->title; ?></h3>
     </div>
     <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
@@ -64,10 +67,35 @@ echo Nav::widget([
 <!--Team statistics widget-->
 <?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
 
+<?php if($not_confirmed_players) : ?>
+    <p class="my-team-page-text">Invite more <?=Html::a('players', '/other/players')?>.</p>
+<?php endif; ?>
+
+<div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b; margin-top: 20px">
+    <div style="border-bottom: 3px solid #008080;">
+        <h4 style=" margin: 0; padding: 10px;">Invited Players</h4>
+    </div>
+    <div class="invited-players clearfix">
+        <?php if($not_confirmed_players) : ?>
+            <?php foreach ($not_confirmed_players as $not_confirmed_player) : ?>
+                <div class="not-confirmed-player col-md-4" style="background: white; display: inline-block; padding: 10px 0;">
+                    <?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?>
+                    <div style="vertical-align: bottom; display: inline-block">
+                        <h5 style="display: inline-block; margin: 0; vertical-align: bottom; color: #a2a1a1">Level <?= $team_data->level; ?></h5>
+                        <h5 style="margin: 0; vertical-align: bottom"><?= $not_confirmed_player->name; ?></h5>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        <?php else : ?>
+            <p style="padding: 20px; text-align: center">Your team didn't invite players. <?=Html::a('Start', '/other/players')?> gain your squad.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
 <p class="my-team-page-text">Total count of matches is <?=$team_data->information->games_count?>. <a href="/main/matches"> View All Matches</a></p>
 
 <div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b">
-    <div style="border-bottom: 3px solid #008080;">
+    <div style="border-bottom: 3px solid #337ab7;">
         <h3 style=" margin: 0; padding: 10px;">Matches</h3>
     </div>
     <div class="all-matches">
@@ -199,17 +227,3 @@ echo Nav::widget([
 
 <!--Closest challenge widget-->
 <?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
-
-<?php if($confirm_players) : ?>
-    <div class="need-confirm-players">
-        <h4>These players didn't confirm your invite yet</h4>
-        <?php foreach ($confirm_players_array as $confirm_player_array) : ?>
-            <div class="col-md-3">
-                <div class="not-confirmed-player" style="background: white;">
-                    <h4 style="text-align: center"><?=$confirm_player_array->username?></h4>
-                    <?= Html::img('/images/preview.gif', ['style' => 'width: 100%'])?>
-                </div>
-            </div>
-        <?php endforeach ?>
-    </div>
-<?php endif; ?>

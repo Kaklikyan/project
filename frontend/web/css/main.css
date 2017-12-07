@@ -705,3 +705,8 @@ table{
 .players-gridview td a:hover, .teams-gridview td a:hover {
     border-bottom: 1px solid #333;
 }
+
+.invited-players {
+    width: 80%;
+    margin: 0 auto;
+}

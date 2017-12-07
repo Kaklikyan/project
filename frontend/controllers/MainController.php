@@ -6,6 +6,7 @@ use app\models\UploadForm;
 use common\models\Challenges;
 use common\models\ChallengeTeamStatistic;
 use common\models\Halls;
+use common\models\Players;
 use common\models\TeamInformation;
 use common\models\User;
 use frontend\models\GalleryImage;
@@ -189,6 +190,8 @@ class MainController extends ParentController
 
         $team_data = Teams::find()->where(['id' => Yii::$app->user->identity->team_id])->with(['players', 'information'])->one();
 
+        $not_confirmed_players = Players::find()->where(['invite_request' => Yii::$app->user->identity->team_id])->all();
+
         foreach ($team_data->players as $key => $player) {
             if($player->is_user == 'no'){
                 $team_players[$key] = $player;
@@ -197,7 +200,7 @@ class MainController extends ParentController
             }
         }
 
-        return $this->render('/main/my-team', compact('team_data', 'team_players', 'closest_challenge', 'few_matches_data', 'last_match_data'));
+        return $this->render('/main/my-team', compact('team_data', 'team_players', 'closest_challenge', 'few_matches_data', 'last_match_data', 'not_confirmed_players'));
     }
 
     // Provide team's matches information

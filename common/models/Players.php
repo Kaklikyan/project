@@ -36,7 +36,7 @@ class Players extends \yii\db\ActiveRecord
         return [
             [['is_user', 'in_team', 'goals', 'passes', 'captain', 'best_player_count'], 'integer'],
             [['date'], 'safe'],
-            [['name', 'photo'], 'string', 'max' => 255],
+            [['name', 'photo', 'invite-request'], 'string', 'max' => 255],
         ];
     }
 
