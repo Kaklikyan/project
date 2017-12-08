@@ -19,7 +19,7 @@ $this->registerCss('
         vertical-align: bottom;
     }
     
-    .team-statistics h3{
+    .team-statistics h4{
         color: inherit;
         margin: 0;
         padding: 10px;
@@ -58,7 +58,7 @@ $this->registerCss('
 
 
 <div class="team-statistics">
-    <div style="border-bottom: 3px solid #337ab7; margin-bottom: 10px"><h3>Team Statistics</h3></div>
+    <div style="border-bottom: 3px solid #337ab7; margin-bottom: 10px"><h4>Team Statistics</h4></div>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>

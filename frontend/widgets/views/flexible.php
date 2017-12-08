@@ -16,14 +16,8 @@ $this->registerCss('
     .parent-flex-div {
         display: flex; 
         text-align: center; 
-        padding: 10px;
-        border: 1px solid #00000045;
+        padding: 14px;
         border-top: none;
-        margin-bottom: 20px;
-    }
-    
-    .parent-flex-div a {
-        color: #333;
     }
         
     .parent-flex-div div:first-child, .parent-flex-div div:last-child{
@@ -32,7 +26,7 @@ $this->registerCss('
     
     .parent-flex-div div:nth-child(2) {
         min-width: 100px;
-        line-height: 23px;
+        line-height: 45px;
     }
 
     img {
@@ -42,23 +36,29 @@ $this->registerCss('
 
 ?>
 <!--class="results-content-top"-->
-<div style="background: linear-gradient(to bottom right, #214f29, #08ccb0); display: flex; padding: 5px 10px; margin-top: 20px">
-    <div style="flex: 1; text-align: left;color: white">Yerevan - <?=Html::a($challenge_data->field->address, Url::to('/fields/' . $challenge_data->field->id), ['style' => 'color:white'])?></div>
-    <div style="min-width: 200px; text-align: center;"><h4 style="margin: 0; color: white">Closest Challenge</h4></div>
-    <div style="flex: 1; text-align: right;">
-        <?=Html::a('All Challenges', '/challenge/', ['style' => 'color: white; text-decoration: underline;'])?>
-    </div>
+<div style="border-bottom: 3px solid #e49f13; display: flex;">
+    <div style="flex: 1;"><h4 style="margin: 0; text-align: left">Closest Challenge</h4></div>
+    <?php if($challenge_data) : ?>
+        <div style="flex: 1; text-align: right; padding: 10px"><?=Html::a('Challenge details', '/challenge/')?></div>
+    <?php endif; ?>
 </div>
+<?php if($challenge_data) : ?>
+    <div style="padding: 10px 10px 0 10px; flex: 1; line-height: 16px;"><h5 style="margin: 0; text-align: center"><?=date("d-D/M/Y H:i", strtotime($challenge_data->challenge_date));?></h5></div>
+<?php endif; ?>
 <div class="parent-flex-div">
-    <div>
-        <?= Html::img('@web/images/' . $challenge_data->challengeFrom->title . '/' . $challenge_data->challengeFrom->logo)?>
-        <?=($challenge_data->challengeFrom->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeFrom->title .'</span>' : Html::a($challenge_data->challengeFrom->title, Url::to(['/teams/', 'id' => $challenge_data->challengeFrom->id]))?>
-    </div>
-    <div><?=date("d-D/M/Y \<\b\\r\> H:i", strtotime($challenge_data->challenge_date));?></div>
-    <div>
-        <?= Html::img('@web/images/' . $challenge_data->challengeTo->title . '/' . $challenge_data->challengeTo->logo)?>
-        <?= ($challenge_data->challengeTo->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeTo->title .'</span>' : Html::a($challenge_data->challengeTo->title, Url::to(['/teams/', 'id' => $challenge_data->challengeTo->id]), ['class' => 'current-team'])?>
-    </div>
+    <?php if($challenge_data) : ?>
+        <div>
+            <?= Html::img('@web/images/' . $challenge_data->challengeFrom->title . '/' . $challenge_data->challengeFrom->logo)?>
+            <?=($challenge_data->challengeFrom->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeFrom->title .'</span>' : Html::a($challenge_data->challengeFrom->title, Url::to(['/teams/', 'id' => $challenge_data->challengeFrom->id]))?>
+        </div>
+        <div><b>VS</b></div>
+        <div>
+            <?= Html::img('@web/images/' . $challenge_data->challengeTo->title . '/' . $challenge_data->challengeTo->logo)?>
+            <?= ($challenge_data->challengeTo->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeTo->title .'</span>' : Html::a($challenge_data->challengeTo->title, Url::to(['/teams/', 'id' => $challenge_data->challengeTo->id]))?>
+        </div>
+    <?php else : ?>
+        <p style="padding: 20px; text-align: center">Your team has not challenge for this moment. <?=Html::a('Challenge', '/other/teams')?> other team.</p>
+    <?php endif; ?>
 </div>
 
 

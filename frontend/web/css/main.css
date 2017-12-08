@@ -710,3 +710,20 @@ table{
     width: 80%;
     margin: 0 auto;
 }
+
+.last-productive-data {
+    /*box-shadow: 0 0 4px -1px #68686b;*/
+    margin-top: 20px;
+    display: flex
+}
+
+.last-productive-data p {
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+}
+
+.last-productive-data h4 {
+    margin: 0;
+    padding: 10px;
+}

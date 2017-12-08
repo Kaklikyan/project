@@ -67,6 +67,24 @@ echo Nav::widget([
 <!--Team statistics widget-->
 <?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
 
+
+
+
+<div class="last-productive-data">
+    <div style="flex: 1;box-shadow: 0 0 4px -1px #68686b; background-color: white; margin-right: 20px">
+        <!--Closest challenge widget-->
+        <?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>
+    </div>
+    <div style="flex: 1;box-shadow: 0 0 4px -1px #68686b; background-color: white">
+        <div style="border-bottom: 3px solid #e49f13;">
+            <h4>The Most Productive Match</h4>
+        </div>
+        <div>
+            <p>Need to create functionality!</p>
+        </div>
+    </div>
+</div>
+
 <?php if($not_confirmed_players) : ?>
     <p class="my-team-page-text">Invite more <?=Html::a('players', '/other/players')?>.</p>
 <?php endif; ?>
@@ -89,6 +107,47 @@ echo Nav::widget([
         <?php else : ?>
             <p style="padding: 20px; text-align: center">Your team didn't invite players. <?=Html::a('Start', '/other/players')?> gain your squad.</p>
         <?php endif; ?>
+    </div>
+</div>
+
+<!--Last match data block-->
+<div class="last-productive-data">
+    <div style="flex: 1;box-shadow: 0 0 4px -1px #68686b; background-color: white; margin-right: 20px">
+        <div style="border-bottom: 3px solid #008080; display: flex">
+            <h4 style="flex: 1">Last Match</h4>
+            <?php if($last_match_data) : ?>
+                <div style="flex: 1; padding: 10px; text-align: right">
+                    <a href="/main/matches/<?=$last_match_data->id?>">Match Details</a>
+                </div>
+            <?php endif ?>
+        </div>
+        <?php if($last_match_data) : ?>
+            <div style="padding: 10px 10px 0 10px; flex: 1; line-height: 16px;">
+                <h5 style="margin: 0; text-align: center;"><?=date("d-D/M/Y H:i", strtotime($last_match_data->match_date))?></h5>
+            </div>
+            <div style="display: flex;">
+                <div class="results-team <?= $last_match_data['first']['id'] == $last_match_data['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                    <?= Html::img('@web/images/' . $last_match_data['first']['title'] . '/' . $last_match_data['first']['logo'], ['class' => 'results-image'])?>
+                    <?= Html::a($last_match_data['first']['title'], '/teams/' . $last_match_data['first']['id']) ?>
+                </div>
+                <div class="results-score"><?= $last_match_data['match_score'] ?></div>
+                <div class="results-team <?= $last_match_data['second']['id'] == $last_match_data['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                    <?= Html::img('@web/images/' . $last_match_data['second']['title'] . '/' . $last_match_data['second']['logo'], ['class' => 'results-image'])?>
+                    <?= Html::a($last_match_data['second']['title'], '/teams/' . $last_match_data['second']['id']) ?>
+                    <div></div>
+                </div>
+            </div>
+        <?php else : ?>
+            <p>Your team has not matches yet. Make first <?=Html::a('challenge', '/other/teams')?>.</p>
+        <?php endif; ?>
+    </div>
+    <div style="flex: 1;box-shadow: 0 0 4px -1px #68686b; background-color: white">
+        <div style="border-bottom: 3px solid #e49f13;">
+            <h4>The Most Productive Match</h4>
+        </div>
+        <div>
+            <p>Need to create functionality!</p>
+        </div>
     </div>
 </div>
 
@@ -118,23 +177,6 @@ echo Nav::widget([
             </div>
         <?php endforeach; ?>
     </div>
-</div>
-
-<div class="">
-    <?php foreach($last_match_data as $match) : ?>
-        <div style="display: flex;">
-            <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
-                <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
-            </div>
-            <div class="results-score"><?= $match['match_score'] ?></div>
-            <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
-                <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
-                <div></div>
-            </div>
-        </div>
-    <?php endforeach; ?>
 </div>
 
 <div class="team-information">
@@ -182,23 +224,23 @@ echo Nav::widget([
         </div>
     </div>
     <div class="team-details-parent">
-        <!--Last match data block-->
-        <div class="last-match-data" style="background: white; border: 1px solid #ccc; display: none;">
-            <?php foreach($last_match_data as $match) : ?>
+
+        <!--<div class="last-match-data" style="background: white; border: 1px solid #ccc; display: none;">
+            <?php /*foreach($last_match_data as $match) : */?>
                 <div style="display: flex;">
-                    <div class="results-team <?= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
-                        <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                        <?= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) ?>
+                    <div class="results-team <?/*= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' */?>">
+                        <?/*= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])*/?>
+                        <?/*= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) */?>
                     </div>
-                    <div class="results-score"><?= $match['match_score'] ?></div>
-                    <div class="results-team <?= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
-                        <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                        <?= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) ?>
+                    <div class="results-score"><?/*= $match['match_score'] */?></div>
+                    <div class="results-team <?/*= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' */?>">
+                        <?/*= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])*/?>
+                        <?/*= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) */?>
                         <div></div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            <?php /*endforeach; */?>
+        </div>-->
         <div class="no-data" style="display: none;"><h3 style="text-align: center">There is no data</h3></div>
         <!--All matches data block-->
         <div class="all-matches">
@@ -224,6 +266,3 @@ echo Nav::widget([
         </div>
     </div>
 </div>
-
-<!--Closest challenge widget-->
-<?php if($closest_challenge) echo FlexibleWidget::widget(['challenge_data' => $closest_challenge]); ?>

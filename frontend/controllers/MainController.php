@@ -182,7 +182,7 @@ class MainController extends ParentController
     public  function actionMyTeam() {
 
         $few_matches_data = MatchesInfo::find()->where(['first_side' => Yii::$app->user->identity->team_id])->orWhere(['second_side' => Yii::$app->user->identity->team_id])->orderBy(new Expression('rand()'))->limit(3)->with('first', 'second')->all();
-        $last_match_data = MatchesInfo::find()->where(['first_side' => Yii::$app->user->identity->team_id])->orWhere(['second_side' => Yii::$app->user->identity->team_id])->orderBy('match_date desc')->limit(1)->with('first', 'second')->all();
+        $last_match_data = MatchesInfo::find()->where(['first_side' => Yii::$app->user->identity->team_id])->orWhere(['second_side' => Yii::$app->user->identity->team_id])->orderBy('match_date desc')->limit(1)->with('first', 'second')->one();
 
         $closest_challenge = Challenges::find()->where(['from' => Yii::$app->user->identity->team_id])->orWhere(['to' => Yii::$app->user->identity->team_id])->andWhere(['confirmed' => 1])->orderBy('challenge_date asc')->limit(1)->with(['challengeFrom', 'challengeTo', 'field' => function(ActiveQuery $q){
             $q->select(['id', 'address']);
