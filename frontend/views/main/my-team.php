@@ -26,31 +26,6 @@ $confirm_players = false;
 $confirm_players_array = [];
 
 
-echo Nav::widget([
-    'items' => [
-        [
-            'label' => 'Home',
-            'url' => ['site/index'],
-        ],
-        [
-            'label' => 'Dropdown',
-            'items' => [
-                ['label' => 'Level 1 - Dropdown A', 'url' => '#'],
-                '<li class="divider"></li>',
-                '<li class="dropdown-header">Dropdown Header</li>',
-                ['label' => 'Level 1 - Dropdown B', 'url' => '#'],
-            ],
-        ],
-        [
-            'label' => 'Login',
-            'url' => ['site/login'],
-            'visible' => Yii::$app->user->isGuest
-        ],
-    ],
-    'options' => ['class' =>'nav-pills'], // set this to nav-tab to get tab-styled navigation
-]);
-
-
 ?>
 
 <div class="my-team-content-top" style="display: flex">
@@ -96,12 +71,49 @@ echo Nav::widget([
     <div class="invited-players clearfix">
         <?php if($not_confirmed_players) : ?>
             <?php foreach ($not_confirmed_players as $not_confirmed_player) : ?>
-                <div class="not-confirmed-player col-md-4" style="background: white; display: inline-block; padding: 10px 0;">
-                    <?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?>
-                    <div style="vertical-align: bottom; display: inline-block">
-                        <h5 style="display: inline-block; margin: 0; vertical-align: bottom; color: #a2a1a1">Level <?= $team_data->level; ?></h5>
-                        <h5 style="margin: 0; vertical-align: bottom"><?= $not_confirmed_player->name; ?></h5>
+                <div class="not-confirmed-player col-md-4">
+                    <div style="display: flex; border-right: 3px dotted #a2a1a1; padding-right: 10px;">
+                        <?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?>
+                        <div style="flex: 1">
+                            <div class="not-confirmed-content">
+                                <h5 >Level <?= $team_data->level; ?></h5>
+                                <h5 style="text-align: right">
+                                    <?php
+
+                                    $seconds = time() - (strtotime($not_confirmed_player->invite_date) - (60*60)*4);
+
+                                    $days = floor($seconds / 86400);
+                                    $seconds %= 86400;
+
+                                    $hours = floor($seconds / 3600);
+                                    $seconds %= 3600;
+
+                                    $minutes = floor($seconds / 60);
+                                    $seconds %= 60;
+
+                                    if($seconds > 0 && $minutes < 1){
+                                        echo $seconds . ' seconds';
+                                        //return true;
+                                    }elseif ($minutes > 0 && $hours < 1) {
+                                        echo $minutes . ' minutes';
+                                        //return true;
+                                    }elseif ($hours > 0 && $days < 1) {
+                                        echo $hours . ' hours';
+                                        //return true;
+                                    }elseif($days > 0){
+                                        echo $days . ' days';
+                                        //return true;
+                                    }
+                                    ?> ago
+                                </h5>
+                            </div>
+                            <div style="display: flex;">
+                                <h5 style="margin: 0; vertical-align: bottom; line-height: 24px; flex: 1"><?= Html::a($not_confirmed_player->name, '/players/'.$not_confirmed_player->id); ?></h5>
+                                <h5 style="; margin: 0; line-height: 24px; font-weight: bold;"><?=Html::a('Cancel', '/player-transfer/cancel/'.$not_confirmed_player->id, ['style' => 'color: tomato;']); ?></h5>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             <?php endforeach ?>
         <?php else : ?>
@@ -176,93 +188,5 @@ echo Nav::widget([
                 <div class="line-padding"><a href="/main/matches/<?=$match['id']?>"  class="btn btn-success">Match Details</a></div>
             </div>
         <?php endforeach; ?>
-    </div>
-</div>
-
-<div class="team-information">
-    <div style="cursor: pointer;" class="container-fluid">
-        <div class="row">
-            <?php if (empty($team_data->information)) : ?>
-                <div style="padding: 48px 0">
-                    <h3 style="text-align: center">Your team have no information</h3>
-                </div>
-            <?php else :?>
-                <div class="col-md-3 no-padding">
-                    <div id="all-matches" class="team-information-column detail-active">
-                        <!--<div class="team-appearing-div">
-                            <a href="<?/*= Url::to(['main/team-info', 'key' => 'total']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
-                        </div>-->
-                        <h4>All Matches</h4>
-                        <?= $team_data->information->games_count ?>
-                        <img src="/images/arrow-point-to-down.png" alt="" style="position: absolute; bottom: -7px; vertical-align: bottom; transform: translateX(-50%); left: 50%; width: 28px">
-                    </div>
-                    <div>
-                    </div>
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div id="no-data" class="team-information-column">
-                        <!--<div class="team-appearing-div">
-                            <a href="<?/*= Url::to(['main/team-info', 'key' => 'wins']); */?>" class="btn btn-primary btn-sm team-information-button">View more</a>
-                        </div>-->
-                        <h4>Total wins</h4>
-                        <?= $team_data->information->number_of_wins ?>
-                    </div>
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div id="last-match-data" class="team-information-column">
-                        <h4>Last Match</h4>
-                        <?= $team_data->information->number_of_looses ?>
-                    </div>
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div class="team-information-column-last">
-                        <h4>Total players</h4>
-                        <?= $team_data->information->number_of_players ?>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-    <div class="team-details-parent">
-
-        <!--<div class="last-match-data" style="background: white; border: 1px solid #ccc; display: none;">
-            <?php /*foreach($last_match_data as $match) : */?>
-                <div style="display: flex;">
-                    <div class="results-team <?/*= $match['first']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' */?>">
-                        <?/*= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])*/?>
-                        <?/*= Html::a($match['first']['title'], '/teams/' . $match['first']['id']) */?>
-                    </div>
-                    <div class="results-score"><?/*= $match['match_score'] */?></div>
-                    <div class="results-team <?/*= $match['second']['id'] == $match['match_winner'] ? 'results-winner result-current-team' : 'results-loser' */?>">
-                        <?/*= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])*/?>
-                        <?/*= Html::a($match['second']['title'], '/teams/' . $match['second']['id']) */?>
-                        <div></div>
-                    </div>
-                </div>
-            <?php /*endforeach; */?>
-        </div>-->
-        <div class="no-data" style="display: none;"><h3 style="text-align: center">There is no data</h3></div>
-        <!--All matches data block-->
-        <div class="all-matches">
-            <?php foreach($few_matches_data as $match) : //print_r($match);die;?>
-                <div class="all-matches-each">
-                    <div class="line-padding" style="font-weight: bold">
-                        <?=date("d-D/M/Y H:i", strtotime($match->match_date)); ?>
-                    </div>
-                    <div class="results-team">
-                        <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                        <?= ($match['first']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['first']['title'] .'</span>' : Html::a($match['first']['title'], Url::to(['/teams/', 'id' => $match['first']['id']]))?>
-                    </div>
-                    <div class="results-score"><?= $match['match_score']?></div>
-                    <div class="results-team">
-                        <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                        <?= ($match['second']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['second']['title'] .'</span>' : Html::a($match['second']['title'], Url::to(['/teams/', 'id' => $match['second']['id']]))?>
-                        <div></div>
-                    </div>
-                    <div class="line-padding"><a href="/main/matches/<?=$match['id']?>"  class="btn btn-success">Match Details</a></div>
-                </div>
-            <?php endforeach; ?>
-            <a href="/main/matches" style="border-radius: 0; font-size: 16px" class="btn btn-warning btn-block">View All Matches</a>
-        </div>
     </div>
 </div>

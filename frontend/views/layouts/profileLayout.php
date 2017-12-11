@@ -148,19 +148,28 @@ NavBar::end();
         </div>
     </div>
     <div id="center-content">
-        <div class="my-team-content clearfix">
-            <?= $content ?>
+        <div style="display: flex">
+            <div class="my-team-content clearfix" style="flex: 1">
+                <?= $content ?>
+            </div>
+            <div id="additional-widget">
+                <?= 'asdasd' ?>
+            </div>
         </div>
-    </div>
-    <div id="additional-widget">
-        <?= 'asdasd' ?>
+
+        <!--<div style="background-color: #008080; margin: 20px 0 -30px 0; box-shadow: 0 0 4px -1px #68686b; position: absolute;width: 100%; bottom: 0">
+            <div>asdasdsad</div>
+            <div>asdasdsad</div>
+            <div>asdasdsad</div>
+            <div>asdasdsad</div>
+            <div>asdasdsad</div>
+        </div>-->
     </div>
 </div>
 
 <script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 
 <?php $this->endBody() ?>
-asdasd
 </body>
 </html>
 <?php $this->endPage() ?>

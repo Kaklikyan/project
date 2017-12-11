@@ -45,11 +45,13 @@ footer {
 }
 
 #full-page-content {
+    height: 100%;
     display: flex;
     padding-left: 215px;
 }
 
 #center-content {
+    position: relative;
     width: 100%;
 }
 
@@ -126,7 +128,6 @@ footer {
 
 #additional-widget {
     min-width: 320px;
-    flex: 1;
 }
 
 .footerLeft,.footerMiddle, .footerRight {
@@ -394,7 +395,7 @@ footer {
 }
 
 .current-team {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid teal;
     font-weight: 300;
 }
 
@@ -727,3 +728,23 @@ table{
     margin: 0;
     padding: 10px;
 }
+
+.not-confirmed-player {
+    background: white;
+    display: inline-block;
+    padding: 10px 5px;
+}
+
+.not-confirmed-content {
+    vertical-align: bottom;
+    display: flex;
+    margin-top: 5px
+}
+
+.not-confirmed-content h5 {
+    flex: 1;
+    margin: 0;
+    vertical-align: bottom;
+    color: #a2a1a1
+}
+

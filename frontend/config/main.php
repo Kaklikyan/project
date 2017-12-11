@@ -37,6 +37,7 @@ return [
                 ],
 
                 'challenge/refuse/<id:\d+>/<whom:\d+>' => 'challenge/refuse',
+                'player-transfer/cancel/<id:\d+>' => 'player-transfer/cancel',
                 'challenge/confirm/<id:\d+>/<whom:\d+>' => 'challenge/confirm',
                 'challenge/cancel/<id:\d+>' => 'challenge/cancel',
 
