@@ -277,7 +277,8 @@ footer {
 }
 
 .my-team-image {
-    width: 45px
+    width: 45px;
+    height: 45px;
 }
 
 .my-team-content-player-image {
@@ -337,9 +338,10 @@ footer {
 }
 
 .my-team-page-text {
-    text-align: center;
-    width: 80%;
-    margin: 20px auto;
+    flex: 1;
+    text-align: right;
+    margin: 0;
+    padding: 10px;
 }
 
 /*.team-appearing-div {*/
@@ -375,7 +377,7 @@ footer {
     overflow: hidden;
     margin: 30px 0;
     background-color: white;
-    box-shadow: 0 0 20px 3px rgba(169, 169, 169, 0.25);
+    box-shadow: 0 0 4px -1px #68686b;
 }
 
 .results-team {
@@ -392,11 +394,6 @@ footer {
 
 .results-team a:hover {
     text-decoration: underline;
-}
-
-.current-team {
-    border-bottom: 1px solid teal;
-    font-weight: 300;
 }
 
 .results-score {
@@ -714,7 +711,7 @@ table{
 
 .last-productive-data {
     /*box-shadow: 0 0 4px -1px #68686b;*/
-    margin-top: 20px;
+    margin: 20px 0;
     display: flex
 }
 
@@ -746,5 +743,18 @@ table{
     margin: 0;
     vertical-align: bottom;
     color: #a2a1a1
+}
+
+.information-values, .information-titles {
+    display: flex;
+}
+
+.information-values div, .information-titles div {
+    flex: 1;
+    text-align: center;
+}
+
+.information-titles a {
+    font-size: 16px;
 }
 

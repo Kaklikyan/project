@@ -9,15 +9,44 @@
 namespace frontend\controllers;
 
 
+use common\models\Challenges;
 use common\models\Players;
 use common\models\PlayersSearch;
+use common\models\User;
+use frontend\models\MatchesInfo;
 use frontend\models\Teams;
 use frontend\models\TeamsSearch;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\Expression;
 
 class OtherController extends ParentController
 {
-    public function actionTeams(){
+    public function actionTeams($id = null){
+
+        if($id) {
+            $few_matches_data = MatchesInfo::find()->where(['first_side' => $id])->orWhere(['second_side' => $id])->orderBy(new Expression('rand()'))->limit(3)->with('first', 'second')->all();
+            $last_match_data = MatchesInfo::find()->where(['first_side' => $id])->orWhere(['second_side' => $id])->orderBy('match_date desc')->limit(1)->with('first', 'second')->one();
+
+            $closest_challenge = Challenges::find()->where(['from' => $id])->orWhere(['to' => $id])->andWhere(['confirmed' => 1])->orderBy('challenge_date asc')->limit(1)->with(['challengeFrom', 'challengeTo', 'field' => function(ActiveQuery $q){
+                $q->select(['id', 'address']);
+            }])->one();
+
+            $team_data = Teams::find()->where(['id' => $id])->with(['players', 'information'])->one();
+
+            $team_players = [];
+
+            foreach ($team_data->players as $key => $player) {
+                if($player->is_user == 'no'){
+                    $team_players[$key] = $player;
+                }else{
+                    $team_players[$key] = User::find()->where(['token' => $player->is_user])->one();
+                }
+            }
+
+            return $this->render('team', compact('team_data', 'team_players', 'closest_challenge', 'few_matches_data', 'last_match_data'));
+
+        }
 
         $searchModel = new TeamsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -25,7 +54,7 @@ class OtherController extends ParentController
         return $this->render('teams', compact('dataProvider', 'searchModel'));
     }
 
-    public function actionPlayers() {
+    public function actionPlayers($id = null) {
 
         $searchModel = new PlayersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

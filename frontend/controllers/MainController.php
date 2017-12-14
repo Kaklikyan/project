@@ -4,25 +4,18 @@ namespace frontend\controllers;
 
 use app\models\UploadForm;
 use common\models\Challenges;
-use common\models\ChallengeTeamStatistic;
 use common\models\Halls;
 use common\models\Players;
 use common\models\TeamInformation;
 use common\models\User;
-use frontend\models\GalleryImage;
 use frontend\models\MatchesInfo;
-use frontend\models\SignupForm;
 use frontend\models\TeamPlayers;
 use frontend\models\Teams;
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\helpers\Url;
 use yii\web\Response;
-use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
-use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 class MainController extends ParentController
 {

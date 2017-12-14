@@ -36,6 +36,12 @@ return [
                     'defaults' => ['id' => ''],
                 ],
 
+                [
+                    'pattern' => 'other/teams/<id:\d+>',
+                    'route' => 'other/teams/',
+                    'defaults' => ['id' => ''],
+                ],
+
                 'challenge/refuse/<id:\d+>/<whom:\d+>' => 'challenge/refuse',
                 'player-transfer/cancel/<id:\d+>' => 'player-transfer/cancel',
                 'challenge/confirm/<id:\d+>/<whom:\d+>' => 'challenge/confirm',

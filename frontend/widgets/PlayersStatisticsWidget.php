@@ -11,7 +11,7 @@ namespace frontend\widgets;
 
 use yii\base\Widget;
 
-class TeamStatisticsWidget extends Widget
+class PlayersStatisticsWidget extends Widget
 {
 
     public $team_players;
@@ -23,7 +23,7 @@ class TeamStatisticsWidget extends Widget
 
     public function run()
     {
-        return $this->render('team-statistics', ['team_players' => $this->team_players]);
+        return $this->render('players-statistics', ['team_players' => $this->team_players]);
     }
 
 }

@@ -9,7 +9,7 @@
 /* @var  \frontend\models\Teams $not_confirmed_players */
 
 use frontend\widgets\FlexibleWidget;
-use frontend\widgets\TeamStatisticsWidget;
+use frontend\widgets\PlayersStatisticsWidget;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -25,26 +25,37 @@ $this->registerCss('
 $confirm_players = false;
 $confirm_players_array = [];
 
+//print_r($team_data);die;
+
 
 ?>
 
-<div class="my-team-content-top" style="display: flex">
+<!--Current team main information block-->
+<div class="my-team-content-top" style="display: flex; margin-bottom: 20px">
     <span class="my-team-content-top-image"><?= Html::img('/images/' . $team_data->title . '/' . $team_data->logo, ['class' => 'my-team-image']); ?></span>
     <div style="flex: 1; line-height: 20px">
         <h5 style="display: inline-block; margin: 0; vertical-align: bottom; color: #a2a1a1">Level <?= $team_data->level; ?></h5>
         <h3 style="margin: 0; vertical-align: bottom"><?= $team_data->title; ?></h3>
     </div>
+    <div style="flex: 1; line-height: 23px">
+        <div class="information-values">
+            <div><?=$team_data->information->games_count?></div>
+            <div style="color: green"><?=$team_data->information->number_of_wins?></div>
+            <div style="color: tomato"><?=$team_data->information->number_of_looses?></div>
+        </div>
+        <div class="information-titles">
+            <div><?=Html::a('Total matches', '/main/matches/', ['style' => 'color: #333'])?></div>
+            <div><?=Html::a('Wins', '/main/matches/wins', ['style' => 'color: green'])?></div>
+            <div><?=Html::a('Looses', '/main/matches/looses', ['style' => 'color: tomato'])?></div>
+        </div>
+    </div>
     <div style="flex: 1; position: relative"><a href="" style="position: absolute; bottom: 0; right: 0; font-size: 16px"><i class="fa fa-cog" aria-hidden="true"></i> Team Settings</a></div>
 </div>
 
-<p class="my-team-page-text">Improve team statistics to get highest rating in entire team's top</p>
-
 <!--Team statistics widget-->
-<?=TeamStatisticsWidget::widget(['team_players' => $team_players])?>
+<?=PlayersStatisticsWidget::widget(['team_players' => $team_players])?>
 
-
-
-
+<!--Last/productive block-->
 <div class="last-productive-data">
     <div style="flex: 1;box-shadow: 0 0 4px -1px #68686b; background-color: white; margin-right: 20px">
         <!--Closest challenge widget-->
@@ -60,13 +71,13 @@ $confirm_players_array = [];
     </div>
 </div>
 
-<?php if($not_confirmed_players) : ?>
-    <p class="my-team-page-text">Invite more <?=Html::a('players', '/other/players')?>.</p>
-<?php endif; ?>
-
+<!--Invited players block-->
 <div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b; margin-top: 20px">
-    <div style="border-bottom: 3px solid #008080;">
-        <h4 style=" margin: 0; padding: 10px;">Invited Players</h4>
+    <div style="border-bottom: 3px solid #008080; display: flex">
+        <h4 style=" margin: 0; padding: 10px; flex: 1">Invited Players</h4>
+        <?php if($not_confirmed_players) : ?>
+            <p class="my-team-page-text">Invite more <?=Html::a('players', '/other/players')?>.</p>
+        <?php endif; ?>
     </div>
     <div class="invited-players clearfix">
         <?php if($not_confirmed_players) : ?>
@@ -138,14 +149,14 @@ $confirm_players_array = [];
                 <h5 style="margin: 0; text-align: center;"><?=date("d-D/M/Y H:i", strtotime($last_match_data->match_date))?></h5>
             </div>
             <div style="display: flex;">
-                <div class="results-team <?= $last_match_data['first']['id'] == $last_match_data['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                <div class="results-team">
                     <?= Html::img('@web/images/' . $last_match_data['first']['title'] . '/' . $last_match_data['first']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($last_match_data['first']['title'], '/teams/' . $last_match_data['first']['id']) ?>
+                    <?= ($last_match_data['first']['id'] == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px; vertical-align: middle">' . $last_match_data['first']['title'] .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($last_match_data['first']['title'], Url::to(['/other/teams/', 'id' => $last_match_data['first']['id']]), ['style' => 'vertical-align: middle']) ?>
                 </div>
                 <div class="results-score"><?= $last_match_data['match_score'] ?></div>
-                <div class="results-team <?= $last_match_data['second']['id'] == $last_match_data['match_winner'] ? 'results-winner result-current-team' : 'results-loser' ?>">
+                <div class="results-team">
                     <?= Html::img('@web/images/' . $last_match_data['second']['title'] . '/' . $last_match_data['second']['logo'], ['class' => 'results-image'])?>
-                    <?= Html::a($last_match_data['second']['title'], '/teams/' . $last_match_data['second']['id']) ?>
+                    <?= ($last_match_data['second']['id'] == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px; vertical-align: middle">' . $last_match_data['second']['title'] .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($last_match_data['second']['title'], Url::to(['/other/teams/', 'id' => $last_match_data['second']['id']]), ['style' => 'vertical-align: middle'])?>
                     <div></div>
                 </div>
             </div>
@@ -163,8 +174,7 @@ $confirm_players_array = [];
     </div>
 </div>
 
-<p class="my-team-page-text">Total count of matches is <?=$team_data->information->games_count?>. <a href="/main/matches"> View All Matches</a></p>
-
+<!--3 random matches-->
 <div class="" style="background-color: white; box-shadow: 0 0 4px -1px #68686b">
     <div style="border-bottom: 3px solid #337ab7;">
         <h3 style=" margin: 0; padding: 10px;">Matches</h3>
@@ -177,12 +187,12 @@ $confirm_players_array = [];
                 </div>
                 <div class="results-team">
                     <?= Html::img('@web/images/' . $match['first']['title'] . '/' . $match['first']['logo'], ['class' => 'results-image'])?>
-                    <?= ($match['first']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['first']['title'] .'</span>' : Html::a($match['first']['title'], Url::to(['/teams/', 'id' => $match['first']['id']]))?>
+                    <?= ($match['first']['id'] == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px; vertical-align: middle">' . $match['first']['title'] .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($match['first']['title'], Url::to(['/other/teams/', 'id' => $match['first']['id']]), ['style' => 'vertical-align: middle']);?>
                 </div>
                 <div class="results-score"><?= $match['match_score']?></div>
                 <div class="results-team">
                     <?= Html::img('@web/images/' . $match['second']['title'] . '/' . $match['second']['logo'], ['class' => 'results-image'])?>
-                    <?= ($match['second']['id'] == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $match['second']['title'] .'</span>' : Html::a($match['second']['title'], Url::to(['/teams/', 'id' => $match['second']['id']]))?>
+                    <?= ($match['second']['id'] == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px; vertical-align: middle">' . $match['second']['title'] .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($match['second']['title'], Url::to(['/other/teams/', 'id' => $match['second']['id']]), ['style' => 'vertical-align: middle'])?>
                     <div></div>
                 </div>
                 <div class="line-padding"><a href="/main/matches/<?=$match['id']?>"  class="btn btn-success">Match Details</a></div>

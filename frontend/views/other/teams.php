@@ -29,9 +29,7 @@ $this->title = 'Teams';
 <h1><?= Html::encode($this->title) ?></h1>
 <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<?php
-
-echo GridView::widget([
+<?= GridView::widget([
     'dataProvider' => $dataProvider,
     //'filterModel' => $searchModel,
     'tableOptions' => [
@@ -45,7 +43,7 @@ echo GridView::widget([
             'contentOptions'=>[ 'style'=>'width: 150px; text-align: left'],
             'headerOptions'=>[ 'style'=>'width: 150px'],
             'value' => function ($data) {
-                return Html::img('@web/images/' . $data->title . '/' . $data->logo, ['style' => 'width: 32px']) . Html::a($data->title, '/teams/' . $data->id); // $data['name'] for array data, e.g. using SqlDataProvider.
+                return Html::img('@web/images/' . $data->title . '/' . $data->logo, ['style' => 'width: 32px']) . Html::a($data->title, '/other/teams/' . $data->id); // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
         'level',

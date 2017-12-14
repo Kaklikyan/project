@@ -49,12 +49,12 @@ $this->registerCss('
     <?php if($challenge_data) : ?>
         <div>
             <?= Html::img('@web/images/' . $challenge_data->challengeFrom->title . '/' . $challenge_data->challengeFrom->logo)?>
-            <?=($challenge_data->challengeFrom->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeFrom->title .'</span>' : Html::a($challenge_data->challengeFrom->title, Url::to(['/teams/', 'id' => $challenge_data->challengeFrom->id]))?>
+            <?=($challenge_data->challengeFrom->id == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px">' . $challenge_data->challengeFrom->title .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($challenge_data->challengeFrom->title, Url::to(['/other/teams/', 'id' => $challenge_data->challengeFrom->id]), ['style' => 'vertical-align: middle; color: #414142'])?>
         </div>
         <div><b>VS</b></div>
         <div>
             <?= Html::img('@web/images/' . $challenge_data->challengeTo->title . '/' . $challenge_data->challengeTo->logo)?>
-            <?= ($challenge_data->challengeTo->id == Yii::$app->user->identity->team_id) ? '<span class="current-team">' . $challenge_data->challengeTo->title .'</span>' : Html::a($challenge_data->challengeTo->title, Url::to(['/teams/', 'id' => $challenge_data->challengeTo->id]))?>
+            <?= ($challenge_data->challengeTo->id == Yii::$app->user->identity->team_id) ? '<span style="margin-right: 5px">' . $challenge_data->challengeTo->title .'</span><i class="fa fa-user-circle" aria-hidden="true"></i>' : Html::a($challenge_data->challengeTo->title, Url::to(['/other/teams/', 'id' => $challenge_data->challengeTo->id]), ['style' => 'vertical-align: middle; color: #414142'])?>
         </div>
     <?php else : ?>
         <p style="padding: 20px; text-align: center">Your team has not challenge for this moment. <?=Html::a('Challenge', '/other/teams')?> other team.</p>
