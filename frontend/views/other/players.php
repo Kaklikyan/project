@@ -33,7 +33,7 @@ echo GridView::widget([
             'contentOptions'=>[ 'style'=>'width: 150px; text-align: left'],
             'headerOptions'=>[ 'style'=>'width: 150px'],
             'value' => function($data){
-                return Html::a($data->name, '/players/' . $data->id);
+                return Html::a($data->name, '/other/players/' . $data->id);
             }
         ],
         [
@@ -44,7 +44,7 @@ echo GridView::widget([
             'value' => function($data){
                 if ($data->in_team != 0){
                     $team = Teams::findOne($data->in_team);
-                    return Html::img('@web/images/' . $team->title . '/' . $team->logo, ['style' => 'width: 32px']) . Html::a($team->title, '/teams/' . $team->id);;
+                    return Html::img('@web/images/' . $team->title . '/' . $team->logo, ['style' => 'width: 32px']) . Html::a($team->title, '/other/teams/' . $team->id);;
                 }else {
                     return 'Free Agent';
                 }

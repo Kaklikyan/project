@@ -119,7 +119,7 @@ $confirm_players_array = [];
                                 </h5>
                             </div>
                             <div style="display: flex;">
-                                <h5 style="margin: 0; vertical-align: bottom; line-height: 24px; flex: 1"><?= Html::a($not_confirmed_player->name, '/players/'.$not_confirmed_player->id); ?></h5>
+                                <h5 style="margin: 0; vertical-align: bottom; line-height: 24px; flex: 1"><?= Html::a($not_confirmed_player->name, '/other/players/'.$not_confirmed_player->id); ?></h5>
                                 <h5 style="; margin: 0; line-height: 24px; font-weight: bold;"><?=Html::a('Cancel', '/player-transfer/cancel/'.$not_confirmed_player->id, ['style' => 'color: tomato;']); ?></h5>
                             </div>
                         </div>

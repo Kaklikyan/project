@@ -56,6 +56,15 @@ class OtherController extends ParentController
 
     public function actionPlayers($id = null) {
 
+        if ($id) {
+
+            $player = Players::findOne($id);
+
+            return $this->render('player', compact('player'));
+
+        }
+
+
         $searchModel = new PlayersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
