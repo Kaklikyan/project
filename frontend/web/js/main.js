@@ -360,6 +360,7 @@ $(document).ready(function () {
 
             var $bar = $(this),
                 $pct = $bar.find(".pct"),
+                $skill_point = $pct.find('.skill-point').html(),
                 data = $bar.data("bar");
 
             setTimeout(function() {
@@ -367,8 +368,8 @@ $(document).ready(function () {
                 $bar
                     .css("background-color", data.color)
                     .animate({
-                        "width": $pct.html()
-                    }, data.speed || 3000, function() {
+                        "width": (parseInt($skill_point) * 10) + '%'
+                    }, data.speed || 1500, function() {
 
                         $pct.css({
                             "color": data.color,

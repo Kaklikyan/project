@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use frontend\models\Teams;
 use Yii;
 
 /**
@@ -58,5 +59,9 @@ class Players extends \yii\db\ActiveRecord
             'best_player_count' => 'Best Player Count',
             'photo' => 'Photo',
         ];
+    }
+
+    public function getTeam() {
+        return $this->hasOne(Teams::className(), ['id' => 'in_team']);
     }
 }

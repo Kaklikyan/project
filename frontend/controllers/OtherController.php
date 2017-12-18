@@ -58,7 +58,8 @@ class OtherController extends ParentController
 
         if ($id) {
 
-            $player = Players::findOne($id);
+            $model = new Players;
+            $player = $model->find()->where(['id' => $id])->with('team')->one();
 
             return $this->render('player', compact('player'));
 
